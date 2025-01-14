@@ -1,9 +1,16 @@
 import { FaGoogle } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = (data) => console.log(data);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-teal-700">
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+    // outer container
+    <section className="min-h-screen flex items-center justify-center bg-teal-700">
+      {/* card container */}
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-xl w-full">
         <h2 className="text-4xl font-bold text-teal-700 text-center mb-4">
           Welcome Back
         </h2>
@@ -12,7 +19,7 @@ const Login = () => {
         </p>
 
         {/* Login Form */}
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -20,7 +27,9 @@ const Login = () => {
             >
               Email
             </label>
+            {/* email */}
             <input
+              {...register("email")}
               type="email"
               id="email"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700"
@@ -35,7 +44,9 @@ const Login = () => {
             >
               Password
             </label>
+            {/* password */}
             <input
+              {...register("password")}
               type="password"
               id="password"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700"
@@ -43,6 +54,7 @@ const Login = () => {
               required
             />
           </div>
+
           <button
             type="submit"
             className="w-full bg-teal-700 text-white py-2 px-4 rounded-lg font-bold text-lg hover:bg-teal-800 transition"
@@ -68,13 +80,13 @@ const Login = () => {
 
         {/* Footer */}
         <p className="text-center text-gray-600 mt-6">
-          Don't have an account?{" "}
+          Don't have an account?
           <a href="/signup" className="text-teal-700 font-bold hover:underline">
             Sign Up
           </a>
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 
