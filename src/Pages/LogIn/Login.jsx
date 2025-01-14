@@ -1,5 +1,6 @@
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -9,6 +10,10 @@ const Login = () => {
   return (
     // outer container
     <section className="min-h-screen flex items-center justify-center bg-teal-700">
+      {/* title */}
+      <Helmet>
+        <title>CampFlow | Sign in</title>
+      </Helmet>
       {/* card container */}
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-xl w-full">
         <h2 className="text-4xl font-bold text-teal-700 text-center mb-4">

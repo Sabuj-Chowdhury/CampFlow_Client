@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -12,6 +13,10 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-teal-700">
+      {/* title */}
+      <Helmet>
+        <title>CampFlow | Sign Up</title>
+      </Helmet>
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-xl w-full">
         <h2 className="text-4xl font-bold text-teal-700 text-center mb-4">
           Create an Account
