@@ -1,13 +1,59 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { useForm } from "react-hook-form";
+import { imageUpload } from "../../utils/ImageBB/imagebbAPI";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
+  const { createUser, updateUserProfile, logOut } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [selectedImage, setSelectedImage] = useState(null);
+  const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
+    }
+  };
+
+  const onSubmit = async (data) => {
+    const image = data.image[0];
+    // console.log(image);
+    const imageURL = await imageUpload(image);
+    const userData = { ...image, ...data, imageURL };
+    const { email, password, name, imageURL: photoURL } = userData;
+    // console.log(email, password, name, photoURL);
+
+    try {
+      // User Registration
+      await createUser(email, password);
+
+      // Save username & profile photo
+      await updateUserProfile(name, photoURL);
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "SignUp Successful, Redirecting Login page",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      // log out user
+      await logOut();
+
+      // redirect user to log in page to login
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
     }
   };
 
@@ -26,7 +72,7 @@ const SignUp = () => {
         </p>
 
         {/* Sign-Up Form */}
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
               htmlFor="name"
@@ -34,7 +80,9 @@ const SignUp = () => {
             >
               Full Name
             </label>
+            {/* name */}
             <input
+              {...register("name")}
               type="text"
               id="name"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700"
@@ -49,7 +97,10 @@ const SignUp = () => {
             >
               Profile Image
             </label>
+            {/* image */}
             <input
+              {...register("image")}
+              required
               type="file"
               id="image"
               accept="image/*"
@@ -61,7 +112,7 @@ const SignUp = () => {
                 <img
                   src={selectedImage}
                   alt="Selected"
-                  className="w-20 h-20 rounded-full object-cover"
+                  className="w-20 h-20  object-contain"
                 />
               </div>
             )}
@@ -73,7 +124,9 @@ const SignUp = () => {
             >
               Email
             </label>
+            {/* email */}
             <input
+              {...register("email")}
               type="email"
               id="email"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700"
@@ -88,7 +141,12 @@ const SignUp = () => {
             >
               Password
             </label>
+            {/* password */}
             <input
+              {...register("password", {
+                pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/,
+                minLength: 6,
+              })}
               type="password"
               id="password"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-700"
@@ -96,6 +154,13 @@ const SignUp = () => {
               required
             />
           </div>
+          {errors.password && (
+            <span>
+              password must be at least 6 character must include one uppercase,
+              one lowercase and at least one digit
+            </span>
+          )}
+
           <button
             type="submit"
             className="w-full bg-teal-700 text-white py-2 px-4 rounded-lg font-bold text-lg hover:bg-teal-800 transition"
@@ -111,11 +176,11 @@ const SignUp = () => {
           <div className="border-t border-gray-300 flex-grow"></div>
         </div>
 
-        {/* Footer */}
+        {/* option to redirect to login page */}
         <p className="text-center text-gray-600 mt-6">
-          Already have an account?{" "}
+          Already have an account?
           <a href="/login" className="text-teal-700 font-bold hover:underline">
-            Login
+            Sign in
           </a>
         </p>
       </div>
