@@ -40,11 +40,21 @@ const SignUp = () => {
       await updateUserProfile(name, photoURL);
 
       Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "SignUp Successful, Redirecting Login page",
-        showConfirmButton: false,
-        timer: 1500,
+        title: "Registration successful,Redirecting to login page",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
       });
       // log out user
       await logOut();

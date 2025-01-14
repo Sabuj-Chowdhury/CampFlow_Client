@@ -38,6 +38,7 @@ const Navbar = () => {
 
         {/* large screen links (centered) */}
         <div className="hidden md:flex items-center justify-center flex-1 gap-7">
+          {/* home */}
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -48,6 +49,7 @@ const Navbar = () => {
           >
             Home
           </NavLink>
+          {/* available camp */}
           <NavLink
             to="/available-camps"
             className={({ isActive }) =>
@@ -62,38 +64,48 @@ const Navbar = () => {
 
         {/* auth  */}
         <div className="hidden md:flex items-center gap-2">
+          {/* if user logged in */}
           {user ? (
             <div className="relative flex items-center">
               <div
                 className="flex items-center gap-2 cursor-pointer"
                 onClick={toggleDropdown}
               >
+                {/* user name */}
                 <span className="text-sm">Hello, {user?.displayName}</span>
+                {/* user image */}
                 <img
                   src={user?.photoURL}
                   alt="user"
-                  className="h-10 w-10 rounded-full border-2 border-white"
+                  className="h-10 w-10 rounded-full object-cover border-2 border-white"
                 />
                 {/* Dropdown arrow */}
                 <span className="text-white">▼</span>
               </div>
+              {/* dropdown menu open */}
               {dropdownOpen && (
                 <div
                   className="  absolute top-16 -mt-3 -right-3
                  bg-white text-teal-700 rounded shadow-lg w-40"
                 >
+                  {/* dashboard */}
                   <NavLink
                     to="/dashboard"
                     className="block px-4 py-2 hover:bg-teal-100"
                     onClick={() => {
                       setDropdownOpen(false);
-                      setMenuOpen(false); // Close the main menu
+                      setMenuOpen(false);
                     }}
                   >
                     Dashboard
                   </NavLink>
+                  {/* logout */}
                   <button
-                    onClick={onLogout}
+                    onClick={() => {
+                      onLogout();
+                      setDropdownOpen(false);
+                      setMenuOpen(false);
+                    }}
                     className="block w-full text-left px-4 py-2 hover:bg-teal-100"
                   >
                     Logout
@@ -102,6 +114,7 @@ const Navbar = () => {
               )}
             </div>
           ) : (
+            // join us(log in)
             <NavLink
               to="/login"
               className="text-lg px-3 py-2 rounded hover:bg-white hover:text-teal-700 transition"
@@ -119,10 +132,11 @@ const Navbar = () => {
                 className="flex items-center gap-1 cursor-pointer"
                 onClick={toggleDropdown}
               >
+                {/* user image */}
                 <img
                   src={user?.photoURL}
                   alt="user"
-                  className="h-8 w-8 rounded-full border-2 border-white"
+                  className="h-10 w-10 rounded-full object-cover border-2 border-white"
                 />
                 {/* Dropdown arrow */}
                 <span className="text-white">▼</span>
@@ -132,18 +146,24 @@ const Navbar = () => {
                   className="  absolute top-16 -mt-3 -right-10
                  bg-white text-teal-700 rounded shadow-lg w-40"
                 >
+                  {/* dashboard */}
                   <NavLink
                     to="/dashboard"
                     className="block px-4 py-2 hover:bg-teal-100"
                     onClick={() => {
                       setDropdownOpen(false);
-                      setMenuOpen(false); // Close the main menu
+                      setMenuOpen(false);
                     }}
                   >
                     Dashboard
                   </NavLink>
+                  {/* logout */}
                   <button
-                    onClick={onLogout}
+                    onClick={() => {
+                      onLogout();
+                      setDropdownOpen(false);
+                      setMenuOpen(false);
+                    }}
                     className="block w-full text-left px-4 py-2 hover:bg-teal-100"
                   >
                     Logout
@@ -153,6 +173,7 @@ const Navbar = () => {
             </div>
           )}
 
+          {/* icons for open and close */}
           <button onClick={toggleMenu} className="focus:outline-none">
             {menuOpen ? (
               <AiOutlineClose size={24} className="cursor-pointer" />
@@ -171,6 +192,7 @@ const Navbar = () => {
               Hello, {user.displayName}
             </span>
           )}
+          {/* home */}
           <NavLink
             to="/"
             className="text-lg py-2 hover:bg-teal-600 w-full text-center"
@@ -178,6 +200,7 @@ const Navbar = () => {
           >
             Home
           </NavLink>
+          {/* available camp */}
           <NavLink
             to="/available-camps"
             className="text-lg py-2 hover:bg-teal-600 w-full text-center"

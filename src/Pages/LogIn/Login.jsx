@@ -4,10 +4,15 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../../hooks/useAuth";
 
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { signIn, signInWithGoogle } = useAuth();
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
 
   const onSubmit = async (data) => {
     // console.log(data);
@@ -18,15 +23,27 @@ const Login = () => {
       await signIn(email, password);
 
       Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Log in Successful",
-        showConfirmButton: false,
-        timer: 1500,
+        title: "Login Successful!",
+        showClass: {
+          popup: `
+                 animate__animated
+                 animate__fadeInUp
+                 animate__faster
+               `,
+        },
+        hideClass: {
+          popup: `
+                 animate__animated
+                 animate__fadeOutDown
+                 animate__faster
+               `,
+        },
       });
     } catch (err) {
       console.log(err);
+      toast.error(err?.message);
     }
+    navigate(from, { replace: true });
   };
 
   // handle google sign in
@@ -35,12 +52,23 @@ const Login = () => {
       await signInWithGoogle();
 
       Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Log in Successful",
-        showConfirmButton: false,
-        timer: 1500,
+        title: "Login Successful!",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
       });
+      navigate(from, { replace: true });
     } catch (err) {
       console.log(err);
     }

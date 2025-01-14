@@ -10,7 +10,6 @@ import {
 import AuthContext from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
-import LoadingSpinner from "../Components/shared/LoadingSpinner/LoadingSpinner";
 
 const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
@@ -53,12 +52,9 @@ const AuthProvider = ({ children }) => {
   // onAuthStateChange
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-        console.log(currentUser);
-        console.log("CurrentUser-->", currentUser.email);
-        setLoading(false);
-      }
+      setUser(currentUser);
+      console.log(currentUser);
+      console.log("CurrentUser-->", currentUser.email);
       setLoading(false);
     });
     return () => {
@@ -66,10 +62,6 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  // if loading show spinner
-  if (loading) {
-    return <LoadingSpinner />;
-  }
   // props
   const authInfo = {
     createUser,
@@ -78,6 +70,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     updateUserProfile,
     user,
+    loading,
   };
 
   return (
