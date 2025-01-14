@@ -1,11 +1,50 @@
 import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
+import useAuth from "../../hooks/useAuth";
+
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { signIn, signInWithGoogle } = useAuth();
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    // console.log(data);
+    const { email, password } = data;
+    // console.log(email, password);
+    try {
+      //sign in with email and password
+      await signIn(email, password);
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Log in Successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // handle google sign in
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Log in Successful",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     // outer container
@@ -77,7 +116,10 @@ const Login = () => {
 
         {/* Social Login */}
         <div className="flex flex-col gap-3">
-          <button className="flex items-center justify-center gap-3 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition">
+          <button
+            onClick={handleGoogleSignIn}
+            className="flex items-center justify-center gap-3 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition"
+          >
             <FaGoogle size={20} />
             Continue with Google
           </button>
