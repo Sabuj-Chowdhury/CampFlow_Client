@@ -9,7 +9,7 @@ const Main = () => {
       {/* navbar */}
       <Navbar></Navbar>
       {/* outlet */}
-      <div>
+      <div className="min-h-[calc(100vh-353px)]">
         <Outlet />
       </div>
       {/* footer */}
