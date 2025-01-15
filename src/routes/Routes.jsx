@@ -14,6 +14,8 @@ import ManageRegisteredUser from "../Pages/Dashboard/Admin/ManageRegisteredUser"
 import Analytics from "../Pages/Dashboard/User/Analytics";
 import RegisteredCamps from "../Pages/Dashboard/User/RegisteredCamps";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoutes from "./AdminRoutes";
+import CampDetails from "../Pages/CampDetails/CampDetails";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,10 @@ const router = createBrowserRouter([
         path: "available-camps",
         element: <AvailableCamps></AvailableCamps>,
       },
+      {
+        path: "camp-details/:campId",
+        element: <CampDetails></CampDetails>,
+      },
     ],
   },
   { path: "/login", element: <Login /> },
@@ -43,15 +49,31 @@ const router = createBrowserRouter([
     children: [
       {
         path: "add-camp",
-        element: <AddCamp></AddCamp>,
+        element: (
+          <PrivateRoute>
+            <AdminRoutes>
+              <AddCamp></AddCamp>
+            </AdminRoutes>
+          </PrivateRoute>
+        ),
       },
       {
         path: "profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "manage-camps",
-        element: <ManageCamps></ManageCamps>,
+        element: (
+          <PrivateRoute>
+            <AdminRoutes>
+              <ManageCamps></ManageCamps>
+            </AdminRoutes>
+          </PrivateRoute>
+        ),
       },
       {
         path: "manage-registered-camps",
