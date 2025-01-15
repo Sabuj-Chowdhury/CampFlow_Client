@@ -1,15 +1,16 @@
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
 import LoadingSpinner from "../../../Components/shared/LoadingSpinner/LoadingSpinner";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const ManageCamps = () => {
-  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
 
   const { data: manageCamp = [], isLoading } = useQuery({
     queryKey: ["manageCamp"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/camps");
+      const { data } = await axiosPublic.get("/camps");
       return data;
     },
   });
