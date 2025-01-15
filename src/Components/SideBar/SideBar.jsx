@@ -23,6 +23,9 @@ const SideBar = () => {
     navigate("/");
   };
 
+  // for now making Admin
+  const isAdmin = false;
+
   return (
     <aside
       className={`bg-teal-800 text-white h-screen sticky top-0 transition-width duration-300 ${
@@ -44,88 +47,96 @@ const SideBar = () => {
 
       {/* Sidebar Links */}
       <nav className="flex flex-col gap-2 p-4">
-        {/* Admin Links */}
-        {/* add campaign */}
-        <NavLink
-          to="/dashboard/add-camp"
-          className={({ isActive }) =>
-            `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
-              isActive ? "bg-teal-500" : ""
-            }`
-          }
-        >
-          <IoMdAddCircleOutline size={24} />
-          <span className={`${isCollapsed && "hidden"}`}>Add Campaign</span>
-        </NavLink>
-
-        {/*Manage camps  */}
-        <NavLink
-          to="/dashboard/manage-camps"
-          className={({ isActive }) =>
-            `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
-              isActive ? "bg-teal-500" : ""
-            }`
-          }
-        >
-          <MdManageSearch size={24} />
-          <span className={`${isCollapsed && "hidden"}`}> Camp Management</span>
-        </NavLink>
-
-        {/*Manage Registered user  */}
-        <NavLink
-          to="/dashboard/manage-registered-camps"
-          className={({ isActive }) =>
-            `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
-              isActive ? "bg-teal-500" : ""
-            }`
-          }
-        >
-          <FaTasks size={24} />
-          <span className={`${isCollapsed && "hidden"}`}>
-            Registrations Management
-          </span>
-        </NavLink>
-
-        {/* User Links */}
-
-        {/* Analytics */}
-        <NavLink
-          to="/dashboard/analytics"
-          className={({ isActive }) =>
-            `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
-              isActive ? "bg-teal-500" : ""
-            }`
-          }
-        >
-          <IoAnalyticsSharp size={24} />
-          <span className={`${isCollapsed && "hidden"}`}>Analytics</span>
-        </NavLink>
-
-        {/* registered camps */}
-        <NavLink
-          to="/dashboard/registered-camps"
-          className={({ isActive }) =>
-            `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
-              isActive ? "bg-teal-500" : ""
-            }`
-          }
-        >
-          <IoMdListBox size={24} />
-          <span className={`${isCollapsed && "hidden"}`}>Registered Camps</span>
-        </NavLink>
-
-        {/* Payment History */}
-        <NavLink
-          to="/dashboard/payment-history"
-          className={({ isActive }) =>
-            `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
-              isActive ? "bg-teal-500" : ""
-            }`
-          }
-        >
-          <FaReceipt size={24} />
-          <span className={`${isCollapsed && "hidden"}`}>Payment History</span>
-        </NavLink>
+        {isAdmin ? (
+          // {/* Admin Links */}
+          <div>
+            {/* add campaign */}
+            <NavLink
+              to="/dashboard/add-camp"
+              className={({ isActive }) =>
+                `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
+                  isActive ? "bg-teal-500" : ""
+                }`
+              }
+            >
+              <IoMdAddCircleOutline size={24} />
+              <span className={`${isCollapsed && "hidden"}`}>Add Campaign</span>
+            </NavLink>
+            {/*Manage camps  */}
+            <NavLink
+              to="/dashboard/manage-camps"
+              className={({ isActive }) =>
+                `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
+                  isActive ? "bg-teal-500" : ""
+                }`
+              }
+            >
+              <MdManageSearch size={24} />
+              <span className={`${isCollapsed && "hidden"}`}>
+                {" "}
+                Camp Management
+              </span>
+            </NavLink>
+            {/*Manage Registered user  */}
+            <NavLink
+              to="/dashboard/manage-registered-camps"
+              className={({ isActive }) =>
+                `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
+                  isActive ? "bg-teal-500" : ""
+                }`
+              }
+            >
+              <FaTasks size={24} />
+              <span className={`${isCollapsed && "hidden"}`}>
+                Registrations Management
+              </span>
+            </NavLink>
+          </div>
+        ) : (
+          // {/* User Links */}
+          <div>
+            {/* Analytics */}
+            <NavLink
+              to="/dashboard/analytics"
+              className={({ isActive }) =>
+                `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
+                  isActive ? "bg-teal-500" : ""
+                }`
+              }
+            >
+              <IoAnalyticsSharp size={24} />
+              <span className={`${isCollapsed && "hidden"}`}>Analytics</span>
+            </NavLink>
+            {/* registered camps */}
+            <NavLink
+              to="/dashboard/registered-camps"
+              className={({ isActive }) =>
+                `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
+                  isActive ? "bg-teal-500" : ""
+                }`
+              }
+            >
+              <IoMdListBox size={24} />
+              <span className={`${isCollapsed && "hidden"}`}>
+                Registered Camps
+              </span>
+            </NavLink>
+            {/* Payment History */}
+            <NavLink
+              to="/dashboard/payment-history"
+              className={({ isActive }) =>
+                `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
+                  isActive ? "bg-teal-500" : ""
+                }`
+              }
+            >
+              <FaReceipt size={24} />
+              <span className={`${isCollapsed && "hidden"}`}>
+                Payment History
+              </span>
+            </NavLink>
+          </div>
+        )}
 
         {/* divider */}
         <div className="space-y-5">
