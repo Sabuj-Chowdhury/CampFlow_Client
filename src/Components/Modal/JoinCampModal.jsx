@@ -11,15 +11,47 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import LoadingSpinner from "../shared/LoadingSpinner/LoadingSpinner";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
 const JoinCampModal = ({ open, onClose, campDetails, user }) => {
+  const { campName, price, location, professionalName, _id } =
+    campDetails || {};
   const [gender, setGender] = useState("male"); // Add state for gender
   const { register, handleSubmit, setValue } = useForm();
+  const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const { campName, price, location, professionalName } = campDetails || {};
+  const onSubmit = async (data) => {
+    setLoading(true);
+    const registrationId = _id;
 
-  const onSubmit = (data) => {
-    console.log(data);
+    const registrationData = { registrationId, ...data };
+
+    try {
+      const { data } = await axiosSecure.post(
+        "/camp/registration",
+        registrationData
+      );
+      if (data.insertedId) {
+        toast.success("Registration Successful!");
+        navigate("/dashboard/registered-camps");
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+
+    // console.log(registrationData);
   };
+
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
   return (
     <Dialog
