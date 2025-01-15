@@ -11,11 +11,14 @@ import AuthContext from "../context/AuthContext";
 import { useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
 import PropTypes from "prop-types";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const googleProvider = new GoogleAuthProvider();
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const axiosPublic = useAxiosPublic();
 
   // create user with email and password
   const createUser = (email, password) => {
@@ -54,14 +57,26 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      if (currentUser?.email) {
+        console.log("CurrentUser-->", currentUser.email);
+
+        const user = {
+          email: currentUser?.email,
+          name: currentUser?.displayName,
+          image: currentUser.photoURL,
+        };
+
+        // save user data in te DB
+        await axiosPublic.post("/users", user);
+      } else {
+        console.log("CurrentUser-->", null);
+      }
       setLoading(false);
-      console.log(currentUser);
-      console.log("CurrentUser-->", currentUser.email);
     });
     return () => {
       return unsubscribe();
     };
-  }, []);
+  }, [axiosPublic]);
 
   // props
   const authInfo = {
