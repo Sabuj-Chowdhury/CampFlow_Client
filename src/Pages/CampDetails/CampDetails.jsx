@@ -3,9 +3,20 @@ import { useParams } from "react-router-dom";
 import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinner";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
+import { useState } from "react";
+import JoinCampModal from "../../Components/Modal/JoinCampModal";
+import useAuth from "../../hooks/useAuth";
+import useAdmin from "../../hooks/useAdmin";
+
 const CampDetails = () => {
   const { campId } = useParams();
+  const { user } = useAuth();
+  const { isAdmin } = useAdmin();
   const axiosPublic = useAxiosPublic();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
 
   const { data: campDetails, isLoading } = useQuery({
     queryKey: ["campDetails", campId],
@@ -67,11 +78,27 @@ const CampDetails = () => {
               <p>{count} registered</p>
             </div>
           </div>
-          <button className="mt-6 w-full bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-700 transition">
+          <button
+            onClick={handleModalOpen}
+            disabled={!user || isAdmin}
+            className={`mt-6 w-full py-2 px-4 rounded transition ${
+              !user || isAdmin
+                ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                : "bg-teal-600 text-white hover:bg-teal-700"
+            }`}
+          >
             Join Camp
           </button>
         </div>
       </div>
+
+      {/* Join Camp Modal */}
+      <JoinCampModal
+        open={isModalOpen}
+        onClose={handleModalClose}
+        campDetails={campDetails}
+        user={user}
+      />
     </div>
   );
 };
