@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../Components/shared/LoadingSpinner/LoadingSpinner";
 import { Helmet } from "react-helmet-async";
+import { imageUpload } from "../../../utils/ImageBB/imagebbAPI";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const AddCamp = () => {
   const {
@@ -16,6 +19,7 @@ const AddCamp = () => {
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -25,8 +29,39 @@ const AddCamp = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
-    reset();
+    setLoading(true);
+
+    // console.log(data);
+    const image = data.image[0];
+    const imageURL = await imageUpload(image);
+    const formData = { ...image, ...data, imageURL };
+    const { image: _, dateTime, campFees, ...rest } = formData;
+    const price = parseFloat(campFees);
+    const dateObject = new Date(dateTime);
+    const date = dateObject.toLocaleDateString("en-GB");
+    const time = dateObject
+      .toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
+      .replace(":", ".");
+
+    const campData = {
+      ...rest,
+      price,
+      date,
+      time,
+      count: 0,
+    };
+    // console.log(campData);
+    // save data in db
+    try {
+      await axiosPublic.post("/add-camp", campData);
+      toast.success("Camp Added Successfully!");
+    } catch (err) {
+      console.log(err);
+      toast.error(err?.message);
+    } finally {
+      setLoading(false);
+      reset();
+    }
   };
 
   if (loading) {

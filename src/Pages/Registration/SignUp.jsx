@@ -13,6 +13,7 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ const SignUp = () => {
       toast.error(err?.message);
     } finally {
       setLoading(false);
+      reset();
     }
   };
 
