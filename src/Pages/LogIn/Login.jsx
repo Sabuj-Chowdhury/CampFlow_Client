@@ -2,8 +2,6 @@ import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../hooks/useAuth";
-
-import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -22,23 +20,7 @@ const Login = () => {
       //sign in with email and password
       await signIn(email, password);
 
-      Swal.fire({
-        title: "Login Successful!",
-        showClass: {
-          popup: `
-                 animate__animated
-                 animate__fadeInUp
-                 animate__faster
-               `,
-        },
-        hideClass: {
-          popup: `
-                 animate__animated
-                 animate__fadeOutDown
-                 animate__faster
-               `,
-        },
-      });
+      toast.success("Login Successful!");
     } catch (err) {
       console.log(err);
       toast.error(err?.message);
@@ -49,26 +31,10 @@ const Login = () => {
   // handle google sign in
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle();
+      const data = await signInWithGoogle();
 
-      Swal.fire({
-        title: "Login Successful!",
-        showClass: {
-          popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
-          `,
-        },
-        hideClass: {
-          popup: `
-            animate__animated
-            animate__fadeOutDown
-            animate__faster
-          `,
-        },
-      });
       navigate(from, { replace: true });
+      toast.success("Login Successful!");
     } catch (err) {
       console.log(err);
     }

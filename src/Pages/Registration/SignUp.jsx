@@ -5,7 +5,6 @@ import { imageUpload } from "../../utils/ImageBB/imagebbAPI";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-import Swal from "sweetalert2";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, logOut } = useAuth();
@@ -39,23 +38,11 @@ const SignUp = () => {
       // Save username & profile photo
       await updateUserProfile(name, photoURL);
 
-      Swal.fire({
-        title: "Registration successful,Redirecting to login page",
-        showClass: {
-          popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
-          `,
-        },
-        hideClass: {
-          popup: `
-            animate__animated
-            animate__fadeOutDown
-            animate__faster
-          `,
-        },
-      });
+      // Save user data in the DB
+
+      // toast
+      toast.success("Sign up successful, Log in Now!");
+
       // log out user
       await logOut();
 

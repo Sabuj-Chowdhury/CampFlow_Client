@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // create user with email and password
   const createUser = (email, password) => {
@@ -54,9 +54,9 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
       console.log(currentUser);
       console.log("CurrentUser-->", currentUser.email);
-      setLoading(false);
     });
     return () => {
       return unsubscribe();

@@ -13,6 +13,7 @@ import ManageCamps from "../Pages/Dashboard/Admin/ManageCamps";
 import ManageRegisteredUser from "../Pages/Dashboard/Admin/ManageRegisteredUser";
 import Analytics from "../Pages/Dashboard/User/Analytics";
 import RegisteredCamps from "../Pages/Dashboard/User/RegisteredCamps";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
   { path: "/signup", element: <SignUp /> },
   {
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "add-camp",
