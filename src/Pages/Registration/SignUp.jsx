@@ -5,6 +5,7 @@ import { imageUpload } from "../../utils/ImageBB/imagebbAPI";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinner";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, logOut } = useAuth();
@@ -15,6 +16,7 @@ const SignUp = () => {
   } = useForm();
   const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -24,6 +26,7 @@ const SignUp = () => {
   };
 
   const onSubmit = async (data) => {
+    setLoading(true);
     const image = data.image[0];
     // console.log(image);
     const imageURL = await imageUpload(image);
@@ -33,10 +36,12 @@ const SignUp = () => {
 
     try {
       // User Registration
-      await createUser(email, password);
+      const data = await createUser(email, password);
 
       // Save username & profile photo
       await updateUserProfile(name, photoURL);
+
+      setLoading(false);
 
       // Save user data in the DB
 
@@ -53,6 +58,10 @@ const SignUp = () => {
       toast.error(err?.message);
     }
   };
+
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-teal-700">
