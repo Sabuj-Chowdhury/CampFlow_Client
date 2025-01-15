@@ -68,7 +68,22 @@ const AuthProvider = ({ children }) => {
 
         // save user data in te DB
         await axiosPublic.post("/users", user);
+
+        const userInfo = { email: currentUser?.email };
+
+        // get token and store in localstorage
+        try {
+          const res = await axiosPublic.post("/jwt", userInfo);
+          if (res.data.token) {
+            localStorage.setItem("token", res.data.token);
+          }
+        } catch (error) {
+          console.error("Error fetching JWT:", error);
+          localStorage.removeItem("token");
+        }
       } else {
+        // if no user logged in
+        localStorage.removeItem("token");
         console.log("CurrentUser-->", null);
       }
       setLoading(false);
