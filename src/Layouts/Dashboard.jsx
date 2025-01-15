@@ -3,11 +3,11 @@ import SideBar from "../Components/SideBar/SideBar";
 
 const Dashboard = () => {
   return (
-    <div className="flex">
+    <div className="flex ">
       {/* dashboard links */}
       <SideBar></SideBar>
       {/* outlet */}
-      <div>
+      <div className="w-full">
         <Outlet></Outlet>
       </div>
     </div>

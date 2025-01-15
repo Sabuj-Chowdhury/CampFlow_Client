@@ -24,7 +24,7 @@ const SideBar = () => {
   };
 
   // for now making Admin
-  const isAdmin = false;
+  const isAdmin = true;
 
   return (
     <aside
@@ -138,47 +138,40 @@ const SideBar = () => {
           </div>
         )}
 
-        {/* divider */}
-        <div className="space-y-5">
-          <div className="border-t border-gray-300 flex-grow"></div>
-        </div>
-
         {/* Common links */}
-        <div className="">
-          {/* profile */}
-          <NavLink
-            to="/dashboard/profile"
-            className={({ isActive }) =>
-              `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
-                isActive ? "bg-teal-500" : ""
-              }`
-            }
-          >
-            <ImProfile size={24} />
-            <span className={`${isCollapsed && "hidden"}`}>Profile</span>
-          </NavLink>
-          {/* home */}
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
-                isActive ? "bg-teal-500" : ""
-              }`
-            }
-          >
-            <AiOutlineHome size={24} />
-            <span className={`${isCollapsed && "hidden"}`}>Home</span>
-          </NavLink>
+        {/* profile */}
+        <NavLink
+          to="/dashboard/profile"
+          className={({ isActive }) =>
+            `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
+              isActive ? "bg-teal-500" : ""
+            }`
+          }
+        >
+          <ImProfile size={24} />
+          <span className={`${isCollapsed && "hidden"}`}>Profile</span>
+        </NavLink>
+        {/* home */}
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
+              isActive ? "bg-teal-500" : ""
+            }`
+          }
+        >
+          <AiOutlineHome size={24} />
+          <span className={`${isCollapsed && "hidden"}`}>Home</span>
+        </NavLink>
 
-          {/* logout */}
-          <button
-            onClick={onLogout}
-            className="flex items-center gap-4 p-2 rounded hover:bg-teal-600"
-          >
-            <BiLogOut size={24} />
-            <span className={`${isCollapsed && "hidden"}`}>Logout</span>
-          </button>
-        </div>
+        {/* logout */}
+        <button
+          onClick={onLogout}
+          className="flex items-center gap-4 p-2 rounded hover:bg-teal-600"
+        >
+          <BiLogOut size={24} />
+          <span className={`${isCollapsed && "hidden"}`}>Logout</span>
+        </button>
       </nav>
     </aside>
   );
