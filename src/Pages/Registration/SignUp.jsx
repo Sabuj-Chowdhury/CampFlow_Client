@@ -41,8 +41,6 @@ const SignUp = () => {
       // Save username & profile photo
       await updateUserProfile(name, photoURL);
 
-      setLoading(false);
-
       // Save user data in the DB
 
       // toast
@@ -56,6 +54,8 @@ const SignUp = () => {
     } catch (err) {
       console.log(err);
       toast.error(err?.message);
+    } finally {
+      setLoading(false);
     }
   };
 

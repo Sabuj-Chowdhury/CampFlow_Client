@@ -4,15 +4,19 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinner";
 
 const Login = () => {
   const { signIn, signInWithGoogle } = useAuth();
   const { register, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
 
   const onSubmit = async (data) => {
+    setLoading(true);
     // console.log(data);
     const { email, password } = data;
     // console.log(email, password);
@@ -20,16 +24,19 @@ const Login = () => {
       //sign in with email and password
       await signIn(email, password);
 
+      navigate(from, { replace: true });
       toast.success("Login Successful!");
     } catch (err) {
       console.log(err);
       toast.error(err?.message);
+    } finally {
+      setLoading(false);
     }
-    navigate(from, { replace: true });
   };
 
   // handle google sign in
   const handleGoogleSignIn = async () => {
+    setLoading(true);
     try {
       const data = await signInWithGoogle();
 
@@ -37,8 +44,14 @@ const Login = () => {
       toast.success("Login Successful!");
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
   return (
     // outer container
