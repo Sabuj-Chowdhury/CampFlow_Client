@@ -1,5 +1,8 @@
+import { Link } from "react-router-dom";
+
 const CampCard = ({ camp }) => {
   const {
+    _id,
     campName,
     location,
     professionalName,
@@ -10,56 +13,58 @@ const CampCard = ({ camp }) => {
     count,
   } = camp || {};
 
-  console.log(camp);
-
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col h-full w-full max-w-screen-md mx-auto">
       {/* Image Section */}
-      <div className="md:w-1/3">
+      <div className="h-40">
         <img
           src={imageURL}
           alt={campName}
-          className="h-56 md:h-full w-full object-cover"
+          className="h-full w-full object-cover"
         />
       </div>
 
       {/* Content Section */}
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-4 flex flex-col flex-grow">
         {/* Camp Name */}
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">{campName}</h2>
+        <h2 className="text-lg font-semibold text-teal-700 mb-2 truncate">
+          {campName}
+        </h2>
 
         {/* Date and Time */}
-        <p className="text-gray-600 mb-2">
-          <span className="font-semibold">Date:</span> {date} |{" "}
-          <span className="font-semibold">Time:</span> {time}
+        <p className="text-gray-600 text-sm">
+          <span className="font-medium">Date:</span> {date}
+        </p>
+        <p className="text-gray-600 text-sm mb-2">
+          <span className="font-medium">Time:</span> {time}
         </p>
 
         {/* Location */}
-        <p className="text-gray-600 mb-2">
-          <span className="font-semibold">Location:</span> {location}
+        <p className="text-gray-600 text-sm mb-2">
+          <span className="font-medium">Location:</span> {location}
         </p>
 
         {/* Healthcare Professional */}
-        <p className="text-gray-600 mb-2">
-          <span className="font-semibold">Healthcare Professional:</span>{" "}
+        <p className="text-gray-600 text-sm mb-2">
+          <span className="font-medium">Healthcare Professional:</span>{" "}
           {professionalName}
         </p>
 
         {/* Participant Count */}
-        <p className="text-gray-600 mb-2">
-          <span className="font-semibold">Participants:</span> {count}
+        <p className="text-gray-600 text-sm mb-4">
+          <span className="font-medium">Participants:</span> {count}
         </p>
 
         {/* Description */}
-        <p className="text-gray-600 mb-4">
-          <span className="font-semibold">Description:</span> {description}
-        </p>
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">{description}</p>
 
         {/* Details Button */}
         <div className="mt-auto">
-          <button className="bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 transition">
-            Details
-          </button>
+          <Link to={`/camp-details/${_id}`}>
+            <button className="bg-teal-600 text-white py-2 px-4 w-full rounded-md hover:bg-teal-700 transition-all">
+              View Details
+            </button>
+          </Link>
         </div>
       </div>
     </div>

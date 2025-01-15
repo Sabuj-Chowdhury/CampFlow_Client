@@ -27,10 +27,12 @@ const AvailableCamps = () => {
       <Helmet>
         <title>CampFlow | Available Camps</title>
       </Helmet>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {campsData.map((camp, idx) => (
-          <CampCard key={idx} camp={camp}></CampCard>
-        ))}
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {campsData.map((camp) => (
+            <CampCard key={camp._id} camp={camp} />
+          ))}
+        </div>
       </div>
     </div>
   );
