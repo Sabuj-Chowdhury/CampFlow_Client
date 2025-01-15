@@ -55,6 +55,7 @@ const AddCamp = () => {
     try {
       await axiosPublic.post("/add-camp", campData);
       toast.success("Camp Added Successfully!");
+      navigate("/dashboard/manage-camps");
     } catch (err) {
       console.log(err);
       toast.error(err?.message);
