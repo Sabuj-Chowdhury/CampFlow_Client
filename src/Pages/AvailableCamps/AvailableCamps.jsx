@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import CampCard from "./CampCard";
 import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinner";
+import SectionTitle from "../../Components/shared/SectionTitle/SectionTitle";
 
 const AvailableCamps = () => {
   const axiosPublic = useAxiosPublic();
@@ -27,7 +28,8 @@ const AvailableCamps = () => {
       <Helmet>
         <title>CampFlow | Available Camps</title>
       </Helmet>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-4">
+        <SectionTitle heading="available camps" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {campsData.map((camp) => (
             <CampCard key={camp._id} camp={camp} />
