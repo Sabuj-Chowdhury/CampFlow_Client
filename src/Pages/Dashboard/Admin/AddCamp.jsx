@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../Components/shared/LoadingSpinner/LoadingSpinner";
 import { Helmet } from "react-helmet-async";
 import { imageUpload } from "../../../utils/ImageBB/imagebbAPI";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AddCamp = () => {
   const {
@@ -19,7 +20,7 @@ const AddCamp = () => {
   const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -53,7 +54,7 @@ const AddCamp = () => {
     // console.log(campData);
     // save data in db
     try {
-      await axiosPublic.post("/add-camp", campData);
+      await axiosSecure.post("/add-camp", campData);
       toast.success("Camp Added Successfully!");
       navigate("/dashboard/manage-camps");
     } catch (err) {

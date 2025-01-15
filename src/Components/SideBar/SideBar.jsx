@@ -8,6 +8,7 @@ import { IoAnalyticsSharp } from "react-icons/io5";
 import { MdManageSearch } from "react-icons/md";
 import { FaReceipt, FaTasks } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
+import useAdmin from "../../hooks/useAdmin";
 
 const SideBar = () => {
   const { logOut } = useAuth();
@@ -23,8 +24,7 @@ const SideBar = () => {
     navigate("/");
   };
 
-  // for now making Admin
-  const isAdmin = true;
+  const { isAdmin } = useAdmin();
 
   return (
     <aside

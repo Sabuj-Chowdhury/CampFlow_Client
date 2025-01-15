@@ -7,11 +7,7 @@ import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinne
 const AvailableCamps = () => {
   const axiosPublic = useAxiosPublic();
 
-  const {
-    data: campsData = [],
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { data: campsData = [], isLoading } = useQuery({
     queryKey: ["campsData"],
     queryFn: async () => {
       const { data } = await axiosPublic.get("/camps");
