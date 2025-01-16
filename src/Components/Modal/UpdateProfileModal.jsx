@@ -9,12 +9,17 @@ import {
 import { useState } from "react";
 import { imageUpload } from "../../utils/ImageBB/imagebbAPI";
 import LoadingSpinner from "../shared/LoadingSpinner/LoadingSpinner";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
-const UpdateProfileModal = ({ open, onClose, profile }) => {
-  const { name, image } = profile || {};
+const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
+  const { name, image, _id } = profile || {};
+  const { updateUserProfile } = useAuth();
   const [imagePreview, setImagePreview] = useState(image || null);
   const [imageUrl, setImageUrl] = useState(image);
   const [loading, setLoading] = useState(false);
+  const axiosSecure = useAxiosSecure();
 
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
@@ -36,6 +41,7 @@ const UpdateProfileModal = ({ open, onClose, profile }) => {
     }
   };
 
+  // update in db as well as in firebase
   const handleUpdate = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -44,12 +50,24 @@ const UpdateProfileModal = ({ open, onClose, profile }) => {
 
     const updateData = {
       name,
-      image: imageUrl, // Use the uploaded URL from state
+      image: imageUrl,
     };
 
-    console.log("Updated Data:", updateData);
+    // console.log("Updated Data:", updateData);
     try {
+      // update in firebase
+      await updateUserProfile(name, image);
+      // console.log(updateUser);
       // api call
+      const { data } = await axiosSecure.patch(
+        `/user/update/${_id}`,
+        updateData
+      );
+
+      refetch();
+      toast.success("updated successfully!");
+      // Close the modal after successful update
+      onClose();
     } catch (err) {
       console.log(err);
     } finally {
