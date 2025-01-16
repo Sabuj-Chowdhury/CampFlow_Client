@@ -8,10 +8,11 @@ import {
 } from "@material-tailwind/react";
 import { useState } from "react";
 import { imageUpload } from "../../utils/ImageBB/imagebbAPI";
-import LoadingSpinner from "../shared/LoadingSpinner/LoadingSpinner";
+
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
   const { name, image, phone, address, _id } = profile || {};
@@ -82,10 +83,6 @@ const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
     }
   };
 
-  if (loading) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
-
   return (
     <Dialog open={open} handler={onClose} className="max-w-lg mx-auto">
       <DialogHeader className="text-xl font-bold text-teal-600">
@@ -154,13 +151,23 @@ const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
           >
             Cancel
           </Button>
+
+          {/* conditionally render the button  */}
           <Button
             type="submit"
             variant="gradient"
             color="teal"
-            className="bg-teal-600 text-white hover:bg-teal-700 font-medium"
+            className="bg-teal-600 text-white hover:bg-teal-700 font-medium flex items-center justify-center gap-2"
+            disabled={loading}
           >
-            Save Changes
+            {loading ? (
+              <>
+                <TbFidgetSpinner className="animate-spin" />
+                Saving...
+              </>
+            ) : (
+              "Save Changes"
+            )}
           </Button>
         </DialogFooter>
       </form>

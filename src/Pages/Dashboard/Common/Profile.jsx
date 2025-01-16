@@ -37,14 +37,15 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className=" flex flex-col">
       {/* title */}
       <Helmet>
         <title>CampFlow | Profile</title>
       </Helmet>
 
       {/* page heading */}
-      <div className="bg-white shadow-md py-4 px-6">
+
+      <div className="p-6">
         <SectionTitle heading="Profile"></SectionTitle>
       </div>
 
