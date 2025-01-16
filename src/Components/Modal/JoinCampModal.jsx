@@ -15,6 +15,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import LoadingSpinner from "../shared/LoadingSpinner/LoadingSpinner";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const JoinCampModal = ({ open, onClose, campDetails, user }) => {
   const { campName, price, location, professionalName, _id } =
@@ -26,10 +27,29 @@ const JoinCampModal = ({ open, onClose, campDetails, user }) => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    setLoading(true);
-    const registrationId = _id;
+    // setLoading(true);
+    const campId = _id;
+    const {
+      camp_name,
+      camp_fees,
+      emergency_contact,
+      location,
+      age,
+      email,
+      name,
+      mobile,
+    } = data;
 
-    const registrationData = { registrationId, ...data };
+    const price = parseFloat(camp_fees);
+
+    const registrationData = {
+      camp_name,
+      campId,
+      price,
+      location,
+      status: "pending",
+      participant: { name, email, age, mobile, emergency_contact, gender },
+    };
 
     try {
       const { data } = await axiosSecure.post(
@@ -78,7 +98,8 @@ const JoinCampModal = ({ open, onClose, campDetails, user }) => {
           <Input
             {...register("camp_fees")}
             label="Camp Fees"
-            value={`$${price}`}
+            type="number"
+            defaultValue={price}
             readOnly
           />
           <Input
@@ -94,28 +115,28 @@ const JoinCampModal = ({ open, onClose, campDetails, user }) => {
             readOnly
           />
           <Input
-            {...register("participant_name")}
+            {...register("name")}
             label="Participant Name"
             value={user?.displayName}
             placeholder="Enter your name"
             readOnly
           />
           <Input
-            {...register("participant_email")}
+            {...register("email")}
             label="Participant Email"
             value={user?.email}
             placeholder="Enter your email"
             readOnly
           />
           <Input
-            {...register("participant_age")}
+            {...register("age")}
             label="Age"
             type="number"
             required
             placeholder="Enter your age"
           />
           <Input
-            {...register("participant_mobile")}
+            {...register("mobile")}
             label="Phone Number"
             type="tel"
             placeholder="Enter your phone number"
@@ -156,3 +177,9 @@ const JoinCampModal = ({ open, onClose, campDetails, user }) => {
 };
 
 export default JoinCampModal;
+JoinCampModal.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  campDetails: PropTypes.object,
+  user: PropTypes.object,
+};
