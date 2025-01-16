@@ -1,7 +1,14 @@
+import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
+import UpdateProfileModal from "../../../Components/Modal/UpdateProfileModal";
 
 const Profile = () => {
   const { user } = useAuth();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -24,16 +31,27 @@ const Profile = () => {
             </h2>
 
             <p className="text-gray-600 text-lg mb-2">
-              <span className="font-medium">Contact:</span> {user.email}
+              <span className="font-medium">Email:</span> {user.email}
             </p>
 
             {/* Update Button */}
-            <button className="bg-teal-600 text-white py-2 px-6 rounded-md hover:bg-teal-700 transition-all">
+            <button
+              onClick={handleModalOpen}
+              className="bg-teal-600 text-white py-2 px-6 rounded-md hover:bg-teal-700 transition-all"
+            >
               Update Profile
             </button>
           </div>
         </div>
       </div>
+
+      {/* modal for update */}
+
+      <UpdateProfileModal
+        open={isModalOpen}
+        onClose={handleModalClose}
+        user={user}
+      ></UpdateProfileModal>
     </div>
   );
 };
