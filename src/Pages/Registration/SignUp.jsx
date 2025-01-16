@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinner";
+import SocialLogin from "../../Components/shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, logOut } = useAuth();
@@ -125,6 +126,7 @@ const SignUp = () => {
               </div>
             )}
           </div>
+
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -183,6 +185,9 @@ const SignUp = () => {
           <p className="text-gray-600 mx-4">or</p>
           <div className="border-t border-gray-300 flex-grow"></div>
         </div>
+
+        {/* Social login */}
+        <SocialLogin></SocialLogin>
 
         {/* option to redirect to login page */}
         <p className="text-center text-gray-600 mt-6">

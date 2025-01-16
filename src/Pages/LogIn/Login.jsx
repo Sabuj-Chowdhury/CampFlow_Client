@@ -1,4 +1,4 @@
-import { FaGoogle } from "react-icons/fa";
+// import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../hooks/useAuth";
@@ -6,9 +6,10 @@ import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinner";
+import SocialLogin from "../../Components/shared/SocialLogin/SocialLogin";
 
 const Login = () => {
-  const { signIn, signInWithGoogle } = useAuth();
+  const { signIn } = useAuth();
   const { register, handleSubmit } = useForm();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -34,20 +35,20 @@ const Login = () => {
     }
   };
 
-  // handle google sign in
-  const handleGoogleSignIn = async () => {
-    setLoading(true);
-    try {
-      const data = await signInWithGoogle();
+  // // handle google sign in
+  // const handleGoogleSignIn = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const data = await signInWithGoogle();
 
-      navigate(from, { replace: true });
-      toast.success("Login Successful!");
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     navigate(from, { replace: true });
+  //     toast.success("Login Successful!");
+  //   } catch (err) {
+  //     console.log(err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   if (loading) {
     return <LoadingSpinner></LoadingSpinner>;
@@ -122,6 +123,9 @@ const Login = () => {
         </div>
 
         {/* Social Login */}
+        <SocialLogin></SocialLogin>
+
+        {/* Social Login
         <div className="flex flex-col gap-3">
           <button
             onClick={handleGoogleSignIn}
@@ -130,7 +134,7 @@ const Login = () => {
             <FaGoogle size={20} />
             Continue with Google
           </button>
-        </div>
+        </div> */}
 
         {/* Footer */}
         <p className="text-center text-gray-600 mt-6">
