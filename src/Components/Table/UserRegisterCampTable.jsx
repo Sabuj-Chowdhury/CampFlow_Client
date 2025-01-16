@@ -1,18 +1,10 @@
 import { Button } from "@material-tailwind/react";
 import PropTypes from "prop-types";
 
-const UserRegisterCampTable = ({ idx, registration }) => {
-  // payment
-  const handlePay = (campId) => {
-    console.log(`campId: ${campId}`);
-  };
+const UserRegisterCampTable = ({ idx, registration, handleDelete }) => {
+  // console.log(registration);
 
-  //   cancel
-  const handleCancel = (campId) => {
-    console.log(`Cancelling registration for campId: ${campId}`);
-  };
-
-  const { camp_name, price, participant, status, campId } = registration || {};
+  const { camp_name, price, participant, status, _id } = registration || {};
   return (
     <tr className="hover:bg-gray-50 transition border-b border-gray-300">
       {/* serial */}
@@ -30,17 +22,18 @@ const UserRegisterCampTable = ({ idx, registration }) => {
       {/*  Payment Status */}
       <td className="px-6 py-4 text-sm border-r border-gray-300">
         {status === "pending" ? (
-          <Button onClick={() => handlePay(campId)}>Pay</Button>
+          <Button>Pay</Button>
         ) : (
           <span className="text-teal-600 font-medium">Paid</span>
         )}
       </td>
       {/*  Confirmation Status */}
       <td className="px-6 py-4 text-sm border-r border-gray-300">{status}</td>
+
       {/*   CANCEL button */}
       <td className="px-6 py-4 text-sm border-r border-gray-300">
         <Button
-          onClick={() => handleCancel(campId)}
+          onClick={() => handleDelete(_id)}
           className="bg-red-500 text-white  hover:bg-red-700 transition"
         >
           Cancel
@@ -65,6 +58,7 @@ export default UserRegisterCampTable;
 
 UserRegisterCampTable.propTypes = {
   idx: PropTypes.number,
+  handleDelete: PropTypes.func,
 
   registration: PropTypes.object,
 };
