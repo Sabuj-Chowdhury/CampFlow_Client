@@ -1,5 +1,6 @@
 import { Button } from "@material-tailwind/react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const UserRegisterCampTable = ({ idx, registration, handleDelete }) => {
   // console.log(registration);
@@ -22,7 +23,11 @@ const UserRegisterCampTable = ({ idx, registration, handleDelete }) => {
       {/*  Payment Status */}
       <td className="px-6 py-4 text-sm border-r border-gray-300">
         {status === "pending" ? (
-          <Button>Pay</Button>
+          <div>
+            <Link to={`/dashboard/pay/${_id}`}>
+              <Button>Pay</Button>
+            </Link>
+          </div>
         ) : (
           <span className="text-teal-600 font-medium">Paid</span>
         )}
