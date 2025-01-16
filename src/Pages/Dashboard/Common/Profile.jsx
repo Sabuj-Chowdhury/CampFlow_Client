@@ -1,14 +1,40 @@
 import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 import UpdateProfileModal from "../../../Components/Modal/UpdateProfileModal";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../../Components/shared/LoadingSpinner/LoadingSpinner";
 
 const Profile = () => {
   const { user } = useAuth();
+
+  const axiosSecure = useAxiosSecure();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
+
+  // get user data
+  const {
+    data: profile,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["profile", user?.email],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/user/${user.email}`);
+      return data;
+    },
+  });
+
+  // console.log(profile);
+
+  const { email, image, name } = profile || {};
+
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -18,20 +44,18 @@ const Profile = () => {
           {/* Profile Picture */}
           <div className="flex-shrink-0">
             <img
-              src={user?.photoURL}
-              alt={user.name}
+              src={image}
+              alt={name}
               className="w-40 h-40 rounded-full object-cover border-4 border-teal-600"
             />
           </div>
 
           {/* User Information */}
           <div className="flex-grow">
-            <h2 className="text-3xl font-bold text-teal-700 mb-4">
-              {user.displayName}
-            </h2>
+            <h2 className="text-3xl font-bold text-teal-700 mb-4">{name}</h2>
 
             <p className="text-gray-600 text-lg mb-2">
-              <span className="font-medium">Email:</span> {user.email}
+              <span className="font-medium">Email:</span> {email}
             </p>
 
             {/* Update Button */}
@@ -50,7 +74,8 @@ const Profile = () => {
       <UpdateProfileModal
         open={isModalOpen}
         onClose={handleModalClose}
-        user={user}
+        profile={profile}
+        refetch={refetch}
       ></UpdateProfileModal>
     </div>
   );
