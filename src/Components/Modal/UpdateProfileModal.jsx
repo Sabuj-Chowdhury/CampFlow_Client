@@ -13,6 +13,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
+import PropTypes from "prop-types";
 
 const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
   const { name, image, phone, address, _id } = profile || {};
@@ -176,3 +177,10 @@ const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
 };
 
 export default UpdateProfileModal;
+
+UpdateProfileModal.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  profile: PropTypes.object,
+  refetch: PropTypes.func,
+};
