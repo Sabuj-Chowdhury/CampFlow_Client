@@ -7,6 +7,7 @@ import { useState } from "react";
 import JoinCampModal from "../../Components/Modal/JoinCampModal";
 import useAuth from "../../hooks/useAuth";
 import useAdmin from "../../hooks/useAdmin";
+import { Helmet } from "react-helmet-async";
 
 const CampDetails = () => {
   const { campId } = useParams();
@@ -44,6 +45,10 @@ const CampDetails = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {/* title */}
+      <Helmet>
+        <title>CampFlow | Camp Details</title>
+      </Helmet>
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         <img
           src={imageURL}

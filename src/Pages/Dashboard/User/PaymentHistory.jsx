@@ -1,16 +1,16 @@
 import { Helmet } from "react-helmet-async";
 import SectionTitle from "../../../Components/shared/SectionTitle/SectionTitle";
 
-const Analytics = () => {
+const PaymentHistory = () => {
   return (
     <div className="max-w-7xl mx-auto">
       {/* title */}
       <Helmet>
-        <title>CampFlow | Analytics</title>
+        <title>CampFlow | Payments History</title>
       </Helmet>
-      <SectionTitle heading="analytics"></SectionTitle>
+      <SectionTitle heading="Payment history"></SectionTitle>
     </div>
   );
 };
 
-export default Analytics;
+export default PaymentHistory;

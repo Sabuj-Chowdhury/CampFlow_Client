@@ -16,6 +16,7 @@ import RegisteredCamps from "../Pages/Dashboard/User/RegisteredCamps";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoutes from "./AdminRoutes";
 import CampDetails from "../Pages/CampDetails/CampDetails";
+import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path: "registered-camps",
         element: <RegisteredCamps></RegisteredCamps>,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory></PaymentHistory>,
       },
     ],
   },

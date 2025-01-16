@@ -35,21 +35,6 @@ const Login = () => {
     }
   };
 
-  // // handle google sign in
-  // const handleGoogleSignIn = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const data = await signInWithGoogle();
-
-  //     navigate(from, { replace: true });
-  //     toast.success("Login Successful!");
-  //   } catch (err) {
-  //     console.log(err);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   if (loading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
@@ -124,17 +109,6 @@ const Login = () => {
 
         {/* Social Login */}
         <SocialLogin></SocialLogin>
-
-        {/* Social Login
-        <div className="flex flex-col gap-3">
-          <button
-            onClick={handleGoogleSignIn}
-            className="flex items-center justify-center gap-3 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition"
-          >
-            <FaGoogle size={20} />
-            Continue with Google
-          </button>
-        </div> */}
 
         {/* Footer */}
         <p className="text-center text-gray-600 mt-6">
