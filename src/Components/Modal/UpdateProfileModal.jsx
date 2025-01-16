@@ -14,7 +14,7 @@ import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 
 const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
-  const { name, image, _id } = profile || {};
+  const { name, image, phone, address, _id } = profile || {};
   const { updateUserProfile } = useAuth();
   const [imagePreview, setImagePreview] = useState(image || null);
   const [imageUrl, setImageUrl] = useState(image);
@@ -34,6 +34,7 @@ const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
       // Upload image
       try {
         const imageUrl = await imageUpload(file);
+
         setImageUrl(imageUrl); // Save URL in state
       } catch (error) {
         console.error("Image upload failed:", error);
@@ -41,35 +42,41 @@ const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
     }
   };
 
-  // update in db as well as in firebase
+  // Update in database and Firebase
   const handleUpdate = async (e) => {
     setLoading(true);
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
+    const phone = form.phone.value;
+    const address = form.address.value;
 
     const updateData = {
       name,
       image: imageUrl,
+      phone,
+      address,
     };
 
-    // console.log("Updated Data:", updateData);
+    // return console.log(updateData);
+
     try {
-      // update in firebase
-      await updateUserProfile(name, image);
-      // console.log(updateUser);
-      // api call
+      // Update in Firebase
+      await updateUserProfile(name, imageUrl);
+
+      // API call to update user data
       const { data } = await axiosSecure.patch(
         `/user/update/${_id}`,
         updateData
       );
 
       refetch();
-      toast.success("updated successfully!");
+      toast.success("Profile updated successfully!");
       // Close the modal after successful update
       onClose();
     } catch (err) {
       console.log(err);
+      toast.error("Failed to update profile.");
     } finally {
       setLoading(false);
     }
@@ -115,6 +122,24 @@ const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
             label="Name"
             name="name"
             defaultValue={name}
+            className="bg-gray-50 border border-gray-300 text-gray-800 focus:border-teal-500 focus:ring-teal-500"
+            size="lg"
+          />
+
+          {/* Phone Number Input */}
+          <Input
+            label="Phone Number"
+            name="phone"
+            defaultValue={phone}
+            className="bg-gray-50 border border-gray-300 text-gray-800 focus:border-teal-500 focus:ring-teal-500"
+            size="lg"
+          />
+
+          {/* Address Input */}
+          <Input
+            label="Address"
+            name="address"
+            defaultValue={address}
             className="bg-gray-50 border border-gray-300 text-gray-800 focus:border-teal-500 focus:ring-teal-500"
             size="lg"
           />
