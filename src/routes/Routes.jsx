@@ -48,6 +48,22 @@ const router = createBrowserRouter([
     ),
     children: [
       {
+        index: true,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "add-camp",
         element: (
           <PrivateRoute>
@@ -57,14 +73,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "profile",
-        element: (
-          <PrivateRoute>
-            <Profile></Profile>
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "manage-camps",
         element: (
