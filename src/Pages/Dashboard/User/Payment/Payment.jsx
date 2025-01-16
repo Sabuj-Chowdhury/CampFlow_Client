@@ -4,6 +4,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@material-tailwind/react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "../../../../Components/form/CheckoutForm";
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY); //stripe public key
 
 const Payment = () => {
   const { id } = useParams();
@@ -51,7 +55,7 @@ const Payment = () => {
       >
         {/* Camp Information */}
         <div className="mb-6">
-          <h2 className="text-lg font-semibold text-gray-700 mb-4">
+          <h2 className="text-lg font-semibold text-center text-gray-700 mb-4">
             Camp Details
           </h2>
           <div className="mb-4">
@@ -89,6 +93,13 @@ const Payment = () => {
           </div>
         </div>
 
+        {/* stripe Elements */}
+        <Elements stripe={stripePromise}>
+          {/* check out form goes here */}
+          <CheckoutForm></CheckoutForm>
+        </Elements>
+
+        {/* buttons */}
         <div className="mt-6 flex flex-row gap-4">
           {/* Pay now button*/}
           <Button type="submit">Pay Now</Button>
