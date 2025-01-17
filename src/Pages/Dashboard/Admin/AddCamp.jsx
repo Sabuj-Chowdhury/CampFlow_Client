@@ -8,6 +8,8 @@ import { imageUpload } from "../../../utils/ImageBB/imagebbAPI";
 
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import SectionTitle from "../../../Components/shared/SectionTitle/SectionTitle";
+import { Button } from "@material-tailwind/react";
 
 const AddCamp = () => {
   const {
@@ -36,19 +38,13 @@ const AddCamp = () => {
     const image = data.image[0];
     const imageURL = await imageUpload(image);
     const formData = { ...image, ...data, imageURL };
-    const { image: _, dateTime, campFees, ...rest } = formData;
+    const { image: _, campFees, ...rest } = formData;
     const price = parseFloat(campFees);
-    const dateObject = new Date(dateTime);
-    const date = dateObject.toLocaleDateString("en-GB");
-    const time = dateObject
-      .toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })
-      .replace(":", ".");
 
     const campData = {
       ...rest,
       price,
-      date,
-      time,
+
       count: 0,
     };
     // console.log(campData);
@@ -71,168 +67,197 @@ const AddCamp = () => {
   }
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen flex items-center justify-center">
+    <div className="max-w-7xl mx-auto p-4">
       {/* title */}
       <Helmet>
         <title>Dashboard | Add Camp</title>
       </Helmet>
 
-      <div className="bg-white shadow-lg rounded-lg w-full max-w-7xl flex flex-col lg:flex-row overflow-hidden">
-        {/* Form Section */}
-        <div className="w-full lg:w-1/2 p-6">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <h2 className="text-4xl font-semibold text-center mb-6">
-              Add New Campaign
-            </h2>
+      {/* Page Heading */}
+      <SectionTitle heading="Add Campaign" />
 
-            {/* Camp Name */}
-            <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Camp Name
-              </label>
-              <input
-                type="text"
-                {...register("campName", {
-                  required: "Camp name is required",
-                })}
-                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              {errors.campName && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.campName.message}
-                </p>
-              )}
-            </div>
+      {/* form */}
 
-            {/* Image Upload */}
-            <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Camp Image
-              </label>
-              <input
-                type="file"
-                required
-                {...register("image")}
-                onChange={handleImageChange}
-                className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              {selectedImage && (
-                <div className="mt-3">
-                  <img
-                    src={selectedImage}
-                    alt="Selected"
-                    className="w-20 h-20  object-contain"
-                  />
-                </div>
-              )}
-            </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="bg-gray-50 p-6 rounded-lg shadow-lg space-y-4"
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Camp Name */}
+          <div>
+            <label className="block text-teal-700 font-medium mb-1">
+              Camp Name
+            </label>
 
-            {/* Camp Fees */}
-            <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Camp Fees
-              </label>
-              <input
-                type="number"
-                {...register("campFees", {
-                  required: "Camp fees are required",
-                  min: { value: 0, message: "Fees must be a positive number" },
-                })}
-                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              {errors.campFees && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.campFees.message}
-                </p>
-              )}
-            </div>
+            <input
+              type="text"
+              {...register("campName", {
+                required: "Camp name is required",
+              })}
+              className="w-full p-2 border border-gray-300 rounded focus:border-teal-500 focus:ring-teal-500"
+              placeholder="Enter Camp Name"
+            />
 
-            {/* Date & Time */}
-            <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Date & Time
-              </label>
-              <input
-                type="datetime-local"
-                {...register("dateTime", {
-                  required: "Date & Time are required",
-                })}
-                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              {errors.dateTime && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.dateTime.message}
-                </p>
-              )}
-            </div>
+            {errors.campName && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.campName.message}
+              </p>
+            )}
+          </div>
+          {/* Image Upload */}
+          <div>
+            <label className="block text-teal-700 font-medium mb-1">
+              Image
+            </label>
 
-            {/* Location */}
-            <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Location
-              </label>
-              <input
-                type="text"
-                {...register("location", {
-                  required: "Location is required",
-                })}
-                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              {errors.location && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.location.message}
-                </p>
-              )}
-            </div>
-
-            {/* Healthcare Professional Name */}
-            <div className="mb-4">
-              <label className="block text-gray-700 font-medium mb-2">
-                Healthcare Professional Name
-              </label>
-              <input
-                type="text"
-                {...register("professionalName", {
-                  required: "Healthcare Professional name is required",
-                })}
-                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-              {errors.professionalName && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.professionalName.message}
-                </p>
-              )}
-            </div>
-
-            {/* Description */}
-            <div className="mb-6">
-              <label className="block text-gray-700 font-medium mb-2">
-                Description
-              </label>
-              <textarea
-                rows="4"
-                {...register("description", {
-                  required: "Description is required",
-                })}
-                className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              ></textarea>
-              {errors.description && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.description.message}
-                </p>
-              )}
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 transition"
-            >
-              Add Campaign
-            </button>
-          </form>
+            <input
+              type="file"
+              required
+              {...register("image")}
+              onChange={handleImageChange}
+              className="w-full p-2 border border-gray-300 rounded focus:border-teal-500 focus:ring-teal-500"
+            />
+            {selectedImage && (
+              <div className="mt-3">
+                <img
+                  src={selectedImage}
+                  alt="Selected"
+                  className="w-20 h-20  object-contain"
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+
+        {/* Camp Fees and Date & Time */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Camp Fees */}
+          <div>
+            <label className="block text-teal-700 font-medium mb-1">
+              Camp Fees
+            </label>
+
+            <input
+              type="number"
+              {...register("campFees", {
+                required: "Camp fees are required",
+                min: { value: 0, message: "Fees must be a positive number" },
+              })}
+              placeholder="Enter Camp Fees"
+              className="w-full p-2 border border-gray-300 rounded focus:border-teal-500 focus:ring-teal-500"
+            />
+            {errors.campFees && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.campFees.message}
+              </p>
+            )}
+          </div>
+
+          {/* Date & Time */}
+          <div>
+            <label className="block text-teal-700 font-medium mb-1">
+              Date & Time
+            </label>
+            <div className="flex space-x-2">
+              {/* Date */}
+              <input
+                type="date"
+                {...register("date", { required: "Date is required" })}
+                className="w-1/2 p-2 border border-gray-300 rounded focus:border-teal-500 focus:ring-teal-500"
+              />
+              {errors.date && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.date.message}
+                </p>
+              )}
+
+              {/* Time */}
+              <input
+                type="time"
+                {...register("time", { required: "Time is required" })}
+                className="w-1/2 p-2 border border-gray-300 rounded focus:border-teal-500 focus:ring-teal-500"
+              />
+              {errors.time && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.time.message}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Location */}
+        <div>
+          <label className="block text-teal-700 font-medium mb-1">
+            Location
+          </label>
+
+          <input
+            type="text"
+            {...register("location", {
+              required: "Location is required",
+            })}
+            placeholder="Enter Location"
+            className="w-full p-2 border border-gray-300 rounded focus:border-teal-500 focus:ring-teal-500"
+          />
+          {errors.location && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.location.message}
+            </p>
+          )}
+        </div>
+
+        {/* Healthcare Professional Name */}
+        <div>
+          <label className="block text-teal-700 font-medium mb-1">
+            Healthcare Professional Name
+          </label>
+          <input
+            type="text"
+            placeholder="Enter Professional Name"
+            className="w-full p-2 border border-gray-300 rounded focus:border-teal-500 focus:ring-teal-500"
+            {...register("professionalName", {
+              required: "Healthcare Professional name is required",
+            })}
+          />
+          {errors.professionalName && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.professionalName.message}
+            </p>
+          )}
+        </div>
+
+        {/* Description */}
+        <div className="mb-6">
+          <label className="block text-teal-700 font-medium mb-1">
+            Description
+          </label>
+
+          <textarea
+            {...register("description", {
+              required: "Description is required",
+            })}
+            placeholder="Enter Description"
+            rows="4"
+            className="w-full p-2 border border-gray-300 rounded focus:border-teal-500 focus:ring-teal-500"
+          ></textarea>
+          {errors.description && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.description.message}
+            </p>
+          )}
+        </div>
+
+        {/* Submit Button */}
+        <div className="text-center">
+          <Button
+            type="submit"
+            className="bg-teal-600 text-white  rounded hover:bg-teal-700"
+          >
+            Add Camp
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };
