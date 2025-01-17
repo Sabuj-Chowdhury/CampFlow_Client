@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 const UserRegisterCampTable = ({ idx, registration, handleDelete }) => {
   // console.log(registration);
 
-  const { camp_name, price, participant, status, _id } = registration || {};
+  const { camp_name, price, participant, status, _id, payment_status } =
+    registration || {};
   return (
     <tr className="hover:bg-gray-50 transition border-b border-gray-300">
       {/* serial */}
@@ -22,7 +23,7 @@ const UserRegisterCampTable = ({ idx, registration, handleDelete }) => {
       </td>
       {/*  Payment Status */}
       <td className="px-6 py-4 text-sm border-r border-gray-300">
-        {status === "pending" ? (
+        {payment_status === "pending" ? (
           <div>
             <Link to={`/dashboard/pay/${_id}`}>
               <Button>Pay</Button>

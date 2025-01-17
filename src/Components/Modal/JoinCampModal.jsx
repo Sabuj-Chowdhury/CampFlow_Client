@@ -48,6 +48,7 @@ const JoinCampModal = ({ open, onClose, campDetails, user }) => {
       price,
       location,
       status: "pending",
+      payment_status: "pending",
       participant: { name, email, age, mobile, emergency_contact, gender },
     };
 

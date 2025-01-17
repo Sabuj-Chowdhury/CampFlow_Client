@@ -5,15 +5,18 @@ import { Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import PropTypes from "prop-types";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ handleCancel, payment }) => {
+  const { user } = useAuth();
   //   console.log(payment);
   const [clientSecret, setClientSecret] = useState("");
   console.log(clientSecret);
 
   const axiosSecure = useAxiosSecure();
-  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPaymentIntent();
@@ -63,6 +66,38 @@ const CheckoutForm = ({ handleCancel, payment }) => {
     } else {
       console.log("[PaymentMethod]", paymentMethod);
     }
+
+    // show confirm payment
+    const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: card,
+        billing_details: {
+          name: user?.name,
+        },
+      },
+    });
+
+    if (paymentIntent.status === "succeeded") {
+      const paymentInfo = {
+        ...payment,
+        payment_status: "paid",
+        registrationId: payment._id,
+      };
+
+      try {
+        //  api call
+        const { data } = await axiosSecure.post("/payments", paymentInfo);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        toast.success(paymentIntent.id);
+        navigate("/dashboard/payment-history");
+      }
+      console.log(paymentInfo);
+    }
+
+    console.log(paymentIntent);
   };
 
   return (
