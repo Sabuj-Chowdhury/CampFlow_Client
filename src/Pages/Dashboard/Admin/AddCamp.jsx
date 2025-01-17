@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import addCamp from "../../../assets/addCamp.webp";
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../../Components/shared/LoadingSpinner/LoadingSpinner";
@@ -231,20 +231,6 @@ const AddCamp = () => {
               Add Campaign
             </button>
           </form>
-        </div>
-
-        {/* Left Side */}
-        <div className="hidden lg:block lg:w-1/2 bg-gradient-to-r from-teal-500 to-blue-600 text-white p-8">
-          <h2 className="text-3xl font-bold mb-4">Create a New Campaign</h2>
-          <p className="text-lg">
-            Start organizing impactful health campaigns today. Fill out the
-            details to set up a new campaign and make a difference in your
-            community.
-          </p>
-
-          <div className="mt-6 space-y-4 flex justify-center items-center">
-            <img src={addCamp} alt="addCamp" className="object-cover" />
-          </div>
         </div>
       </div>
     </div>
