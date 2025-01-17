@@ -3,11 +3,12 @@ import PropTypes from "prop-types";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const ManageCampTable = ({ camp, index, refetch }) => {
   const axiosSecure = useAxiosSecure();
 
-  //   console.log(camp);
+  // console.log(camp);
 
   //   destructure
   const { campName, date, time, location, professionalName, _id } = camp || {};
@@ -55,9 +56,13 @@ const ManageCampTable = ({ camp, index, refetch }) => {
       <td className="border border-gray-200 px-4 py-2">{location}</td>
       <td className="border border-gray-200 px-4 py-2">{professionalName}</td>
       <td className="border border-gray-200 px-4 py-2 flex items-center gap-2">
-        <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-md flex items-center gap-1">
-          <FaEdit /> Edit
-        </Button>
+        {/* update */}
+        {/* update-camp/:campId */}
+        <Link to={`/dashboard/update-camp/${_id} `}>
+          <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-md flex items-center gap-1">
+            <FaEdit /> Edit
+          </Button>
+        </Link>
         {/* delete */}
         <Button
           onClick={() => handleCustomDelete(_id)}
@@ -74,7 +79,7 @@ export default ManageCampTable;
 
 ManageCampTable.propTypes = {
   index: PropTypes.number,
-
+  handleModalOpen: PropTypes.func,
   camp: PropTypes.object,
   refetch: PropTypes.func,
 };

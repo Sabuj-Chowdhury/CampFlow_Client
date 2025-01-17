@@ -18,6 +18,7 @@ import AdminRoutes from "./AdminRoutes";
 import CampDetails from "../Pages/CampDetails/CampDetails";
 import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory";
 import Payment from "../Pages/Dashboard/User/Payment/Payment";
+import UpdateCamp from "../Pages/Dashboard/Admin/Update/UpdateCamp";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +106,10 @@ const router = createBrowserRouter([
       {
         path: "pay/:id",
         element: <Payment></Payment>,
+      },
+      {
+        path: "update-camp/:campId",
+        element: <UpdateCamp></UpdateCamp>,
       },
     ],
   },
