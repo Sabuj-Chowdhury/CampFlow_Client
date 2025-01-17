@@ -5,13 +5,11 @@ import { Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import PropTypes from "prop-types";
-import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = ({ handleCancel, payment }) => {
-  const { user } = useAuth();
-  //   console.log(payment);
+  // console.log(payment);
   const [clientSecret, setClientSecret] = useState("");
   console.log(clientSecret);
 
@@ -72,10 +70,11 @@ const CheckoutForm = ({ handleCancel, payment }) => {
       payment_method: {
         card: card,
         billing_details: {
-          name: user?.name,
+          name: payment?.participant?.name,
         },
       },
     });
+    // console.log(paymentIntent);
 
     if (paymentIntent.status === "succeeded") {
       const paymentInfo = {
@@ -87,17 +86,17 @@ const CheckoutForm = ({ handleCancel, payment }) => {
       try {
         //  api call
         const { data } = await axiosSecure.post("/payments", paymentInfo);
-        console.log(data);
+        // console.log(data);
       } catch (err) {
         console.log(err);
       } finally {
         toast.success(paymentIntent.id);
         navigate("/dashboard/payment-history");
       }
-      console.log(paymentInfo);
+      // console.log(paymentInfo);
     }
 
-    console.log(paymentIntent);
+    // console.log(paymentIntent);
   };
 
   return (
@@ -118,9 +117,6 @@ const CheckoutForm = ({ handleCancel, payment }) => {
           },
         }}
       />
-      {/* <button type="submit" disabled={!stripe}>
-        Pay
-      </button> */}
 
       {/* buttons */}
       <div className="mt-6 flex flex-row justify-around gap-4">

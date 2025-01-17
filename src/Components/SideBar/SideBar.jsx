@@ -29,7 +29,7 @@ const SideBar = () => {
   return (
     <aside
       className={`bg-teal-800 text-white h-screen sticky top-0 transition-width duration-300 ${
-        isCollapsed ? "w-16" : "w-64"
+        isCollapsed ? "w-16" : "w-72"
       }`}
     >
       {/* Sidebar Header */}

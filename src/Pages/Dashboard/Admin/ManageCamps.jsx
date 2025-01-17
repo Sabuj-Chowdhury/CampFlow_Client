@@ -9,7 +9,11 @@ import SectionTitle from "../../../Components/shared/SectionTitle/SectionTitle";
 const ManageCamps = () => {
   const axiosPublic = useAxiosPublic();
 
-  const { data: manageCamp = [], isLoading } = useQuery({
+  const {
+    data: manageCamp = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["manageCamp"],
     queryFn: async () => {
       const { data } = await axiosPublic.get("/camps");
@@ -49,7 +53,7 @@ const ManageCamps = () => {
                 Healthcare Professional
               </th>
               <th className="border border-gray-200 px-4 py-2 text-center">
-                Actions
+                Update/Delete
               </th>
             </tr>
           </thead>
@@ -59,6 +63,7 @@ const ManageCamps = () => {
                 key={index}
                 camp={camp}
                 index={index}
+                refetch={refetch}
               ></ManageCampTable>
             ))}
           </tbody>

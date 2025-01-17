@@ -22,7 +22,7 @@ const Payment = () => {
     },
   });
 
-  //   console.log(payment);
+  // console.log(payment);
 
   // Destructure required data
   const { camp_name, price, location } = payment;

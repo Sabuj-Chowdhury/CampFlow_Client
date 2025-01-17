@@ -26,7 +26,20 @@ const RegisteredCamps = () => {
   });
 
   // cancel registration
-  const handleDelete = (id) => {
+
+  const handleDelete = async (id) => {
+    // console.log(id);
+    try {
+      // api call to cancel
+      const { data } = axiosSecure.delete(`/registration/${id}`);
+
+      refetch();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleCustomDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -37,20 +50,12 @@ const RegisteredCamps = () => {
       confirmButtonText: "Yes, cancel it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        try {
-          const { data } = axiosSecure.delete(`/registration/${id}`);
-          console.log(data);
-          refetch();
-        } catch (err) {
-          console.log(err);
-        } finally {
-          Swal.fire({
-            title: "Canceled!",
-            text: "Your registration has been canceled.",
-            icon: "success",
-          });
-          console.log(id);
-        }
+        handleDelete(id);
+        Swal.fire({
+          title: "Canceled!",
+          text: "Your registration has been canceled.",
+          icon: "success",
+        });
       }
     });
   };
@@ -115,7 +120,7 @@ const RegisteredCamps = () => {
                   key={idx}
                   registration={registration}
                   idx={idx}
-                  handleDelete={handleDelete}
+                  handleCustomDelete={handleCustomDelete}
                 />
               ))}
             </tbody>
