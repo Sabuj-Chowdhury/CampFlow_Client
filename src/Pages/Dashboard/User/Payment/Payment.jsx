@@ -3,7 +3,6 @@ import SectionTitle from "../../../../Components/shared/SectionTitle/SectionTitl
 import { useParams, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { Button } from "@material-tailwind/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../../../../Components/form/CheckoutForm";
@@ -23,13 +22,15 @@ const Payment = () => {
     },
   });
 
+  //   console.log(payment);
+
   // Destructure required data
   const { camp_name, price, location } = payment;
 
-  // Handle pay now
-  const handlePayNow = () => {
-    console.log("Processing payment...");
-  };
+  //   // Handle pay now
+  //   const handlePayNow = () => {
+  //     console.log("Processing payment...");
+  //   };
 
   // Handle cancel
   const handleCancel = () => {
@@ -45,14 +46,7 @@ const Payment = () => {
       {/* Page Title */}
       <SectionTitle heading="Checkout" />
 
-      {/* Checkout Form */}
-      <form
-        className="bg-white shadow-lg rounded-lg p-8 max-w-lg mx-auto mt-8"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handlePayNow();
-        }}
-      >
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-lg mx-auto mt-8">
         {/* Camp Information */}
         <div className="mb-6">
           <h2 className="text-lg font-semibold text-center text-gray-700 mb-4">
@@ -65,7 +59,7 @@ const Payment = () => {
             <input
               type="text"
               className="w-full mt-2 p-3 border border-gray-300 rounded-md bg-gray-100"
-              value={camp_name}
+              value={camp_name || ""}
               disabled
             />
           </div>
@@ -76,7 +70,7 @@ const Payment = () => {
             <input
               type="text"
               className="w-full mt-2 p-3 border border-gray-300 rounded-md bg-gray-100"
-              value={location}
+              value={location || ""}
               disabled
             />
           </div>
@@ -87,7 +81,7 @@ const Payment = () => {
             <input
               type="text"
               className="w-full mt-2 p-3 border border-gray-300 rounded-md bg-gray-100"
-              value={`$${price}`}
+              value={`$${price || 0}`}
               disabled
             />
           </div>
@@ -96,24 +90,12 @@ const Payment = () => {
         {/* stripe Elements */}
         <Elements stripe={stripePromise}>
           {/* check out form goes here */}
-          <CheckoutForm></CheckoutForm>
+          <CheckoutForm
+            handleCancel={handleCancel}
+            payment={payment}
+          ></CheckoutForm>
         </Elements>
-
-        {/* buttons */}
-        <div className="mt-6 flex flex-row gap-4">
-          {/* Pay now button*/}
-          <Button type="submit">Pay Now</Button>
-
-          {/* cancel button */}
-          <Button
-            type="button"
-            onClick={handleCancel}
-            className=" text-gray-700 bg-gray-200 "
-          >
-            Cancel
-          </Button>
-        </div>
-      </form>
+      </div>
     </div>
   );
 };
