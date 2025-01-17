@@ -30,7 +30,9 @@ const UserRegisterCampTable = ({ idx, registration, handleDelete }) => {
             </Link>
           </div>
         ) : (
-          <span className="text-teal-600 font-medium">Paid</span>
+          <span className="text-teal-600 font-medium text-center cursor-not-allowed">
+            Paid
+          </span>
         )}
       </td>
       {/*  Confirmation Status */}
@@ -38,12 +40,21 @@ const UserRegisterCampTable = ({ idx, registration, handleDelete }) => {
 
       {/*   CANCEL button */}
       <td className="px-6 py-4 text-sm border-r border-gray-300">
-        <Button
-          onClick={() => handleDelete(_id)}
-          className="bg-red-500 text-white  hover:bg-red-700 transition"
-        >
-          Cancel
-        </Button>
+        {payment_status === "pending" ? (
+          <Button
+            onClick={() => handleDelete(_id)}
+            className="bg-red-500 text-white  hover:bg-red-700 transition"
+          >
+            Cancel
+          </Button>
+        ) : (
+          <button
+            disabled
+            className="text-teal-600 font-medium text-center cursor-not-allowed"
+          >
+            Not allowed
+          </button>
+        )}
       </td>
 
       {/* FEEDBACK button */}
@@ -53,7 +64,9 @@ const UserRegisterCampTable = ({ idx, registration, handleDelete }) => {
             Leave Feedback
           </button>
         ) : (
-          <span className="text-gray-400">Not Available</span>
+          <span className="text-gray-400  text-center cursor-not-allowed">
+            Not Available
+          </span>
         )}
       </td>
     </tr>
