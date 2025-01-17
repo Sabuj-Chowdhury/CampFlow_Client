@@ -1,8 +1,10 @@
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 
 import LoadingSpinner from "../../../Components/shared/LoadingSpinner/LoadingSpinner";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import ManageCampTable from "./AdminTables/ManageCampTable";
+import { Helmet } from "react-helmet-async";
+import SectionTitle from "../../../Components/shared/SectionTitle/SectionTitle";
 
 const ManageCamps = () => {
   const axiosPublic = useAxiosPublic();
@@ -20,57 +22,44 @@ const ManageCamps = () => {
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-6">Manage Camps</h1>
+    <div className="max-w-7xl mx-auto">
+      <Helmet>
+        <title>CampFlow | ManageCamp</title>
+      </Helmet>
+
+      {/* page heading */}
+      <SectionTitle heading="Manage campaign" />
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border border-gray-200 shadow-md rounded-md">
           <thead className="bg-gray-100">
             <tr>
-              <th className="border border-gray-200 px-4 py-2 text-left">#</th>
-              <th className="border border-gray-200 px-4 py-2 text-left">
+              <th className="border border-gray-200 px-4 py-2 text-center">
+                #
+              </th>
+              <th className="border border-gray-200 px-4 py-2 text-center">
                 Name
               </th>
-              <th className="border border-gray-200 px-4 py-2 text-left">
+              <th className="border border-gray-200 px-4 py-2 text-center">
                 Date & Time
               </th>
-              <th className="border border-gray-200 px-4 py-2 text-left">
+              <th className="border border-gray-200 px-4 py-2 text-center">
                 Location
               </th>
-              <th className="border border-gray-200 px-4 py-2 text-left">
+              <th className="border border-gray-200 px-4 py-2 text-center">
                 Healthcare Professional
               </th>
-              <th className="border border-gray-200 px-4 py-2 text-left">
+              <th className="border border-gray-200 px-4 py-2 text-center">
                 Actions
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-center">
             {manageCamp.map((camp, index) => (
-              <tr key={camp._id} className="hover:bg-gray-50">
-                <td className="border border-gray-200 px-4 py-2">
-                  {index + 1}
-                </td>
-                <td className="border border-gray-200 px-4 py-2">
-                  {camp.campName}
-                </td>
-                <td className="border border-gray-200 px-4 py-2">
-                  {camp.date} | {camp.time}
-                </td>
-                <td className="border border-gray-200 px-4 py-2">
-                  {camp.location}
-                </td>
-                <td className="border border-gray-200 px-4 py-2">
-                  {camp.professionalName}
-                </td>
-                <td className="border border-gray-200 px-4 py-2 flex items-center gap-2">
-                  <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md flex items-center gap-1">
-                    <FaEdit /> Edit
-                  </button>
-                  <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md flex items-center gap-1">
-                    <FaTrashAlt /> Delete
-                  </button>
-                </td>
-              </tr>
+              <ManageCampTable
+                key={index}
+                camp={camp}
+                index={index}
+              ></ManageCampTable>
             ))}
           </tbody>
         </table>
