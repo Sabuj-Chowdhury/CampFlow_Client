@@ -27,11 +27,6 @@ const Payment = () => {
   // Destructure required data
   const { camp_name, price, location } = payment;
 
-  //   // Handle pay now
-  //   const handlePayNow = () => {
-  //     console.log("Processing payment...");
-  //   };
-
   // Handle cancel
   const handleCancel = () => {
     navigate("/dashboard/registered-camps"); // Redirect to registered camps
