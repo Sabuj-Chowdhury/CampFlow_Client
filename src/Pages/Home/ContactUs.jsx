@@ -1,7 +1,38 @@
 import SectionTitle from "../../Components/shared/SectionTitle/SectionTitle";
 import { Button } from "@material-tailwind/react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const ContactUs = () => {
+  const axiosPublic = useAxiosPublic();
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const form = e.target;
+
+    const messageInfo = {
+      name: form.name.value,
+      message: form.message.value,
+      email: form.email.value,
+    };
+
+    try {
+      // api call
+      const { data } = await axiosPublic.post("/email", messageInfo);
+      toast.success(`${data.message}`);
+      form.reset();
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+
+    // console.table(messageInfo);
+  };
+
   return (
     <div className="max-w-7xl mx-auto my-10 px-4">
       {/* Section Title */}
@@ -15,7 +46,7 @@ const ContactUs = () => {
 
       {/* Contact Form */}
       <div className="bg-white shadow-lg rounded-lg p-8">
-        <form className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Name Field */}
           <div>
             <label
@@ -74,9 +105,17 @@ const ContactUs = () => {
           <div className="text-center">
             <Button
               type="submit"
-              className=" bg-gray-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-700 transition"
+              disabled={loading}
+              className="flex items-center justify-center gap-2 bg-gray-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-gray-700 transition"
             >
-              Send Message
+              {loading ? (
+                <>
+                  <TbFidgetSpinner className="animate-spin"></TbFidgetSpinner>{" "}
+                  please wait ..
+                </>
+              ) : (
+                <>Send Message</>
+              )}
             </Button>
           </div>
         </form>

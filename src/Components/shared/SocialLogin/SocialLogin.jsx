@@ -18,8 +18,7 @@ const SocialLogin = () => {
   const handleGoogleSignIn = async () => {
     setLoading(true);
     try {
-      const data = await signInWithGoogle();
-
+      await signInWithGoogle();
       navigate(from, { replace: true });
       toast.success("Login Successful!");
     } catch (err) {
