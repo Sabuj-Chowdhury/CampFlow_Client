@@ -27,6 +27,22 @@ const ManageRegistrationTable = ({ index, registeredUser, refetch }) => {
     // console.log(id);
   };
 
+  // cancel handler
+  const handleDelete = async (id) => {
+    setLoading(true);
+
+    try {
+      await axiosSecure.delete(`/registration/${id}`);
+      refetch();
+      toast.success("deleted successfully!");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+    // console.log(id);
+  };
+
   if (loading) {
     return <LoadingSpinner></LoadingSpinner>;
   }
@@ -51,7 +67,7 @@ const ManageRegistrationTable = ({ index, registeredUser, refetch }) => {
       <td className="px-6 py-4 text-sm border-r border-gray-300">
         {payment_status === "pending" ? (
           <span className="text-teal-600 font-medium text-center cursor-not-allowed">
-            Pending
+            Unpaid
           </span>
         ) : (
           <span className="text-teal-600 font-medium text-center cursor-not-allowed">
@@ -73,19 +89,22 @@ const ManageRegistrationTable = ({ index, registeredUser, refetch }) => {
         )}
       </td>
 
-      {/*   CANCEL button */}
+      {/* CANCEL button */}
       <td className="px-6 py-4 text-sm border-r border-gray-300">
-        {payment_status === "pending" ? (
-          <Button className="bg-red-500 text-white  hover:bg-red-700 transition">
-            Cancel
-          </Button>
-        ) : (
+        {payment_status === "paid" && status === "confirmed" ? (
           <button
             disabled
             className="text-teal-600 font-medium text-center cursor-not-allowed"
           >
-            Canceled
+            Cannot Cancel
           </button>
+        ) : (
+          <Button
+            onClick={() => handleDelete(_id)}
+            className="bg-red-500 text-white hover:bg-red-700 transition"
+          >
+            Cancel
+          </Button>
         )}
       </td>
     </tr>
