@@ -31,7 +31,7 @@ const RegisteredCamps = () => {
     // console.log(id);
     try {
       // api call to cancel
-      const { data } = axiosSecure.delete(`/registration/${id}`);
+      await axiosSecure.delete(`/registration/${id}`);
 
       refetch();
     } catch (err) {

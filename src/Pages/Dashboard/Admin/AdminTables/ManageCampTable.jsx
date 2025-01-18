@@ -18,7 +18,7 @@ const ManageCampTable = ({ camp, index, refetch }) => {
     // console.log(id);
     try {
       // api call to delete
-      const { data } = await axiosSecure.delete(`/camp/${id}`);
+      await axiosSecure.delete(`/camp/${id}`);
 
       refetch();
     } catch (err) {

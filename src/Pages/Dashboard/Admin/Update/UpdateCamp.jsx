@@ -68,8 +68,7 @@ const UpdateCamp = () => {
 
     try {
       //api call to update data
-      const { data } = await axiosSecure.put(`/camp/${campId}`, updatedCamp);
-      console.log(data);
+      await axiosSecure.put(`/camp/${campId}`, updatedCamp);
       setLoading(false);
       toast.success("Data updated successfully");
       refetch();
