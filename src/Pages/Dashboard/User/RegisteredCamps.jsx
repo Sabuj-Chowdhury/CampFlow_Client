@@ -109,7 +109,7 @@ const RegisteredCamps = () => {
                   Confirmation Status
                 </th>
                 <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
-                  Action
+                  Cancel
                 </th>
                 <th className="px-6 py-3 text-sm font-medium">Feedback</th>
               </tr>

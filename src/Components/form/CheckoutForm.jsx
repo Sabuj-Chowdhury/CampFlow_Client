@@ -7,6 +7,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import PropTypes from "prop-types";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CheckoutForm = ({ handleCancel, payment }) => {
   // console.log(payment);
@@ -28,6 +29,7 @@ const CheckoutForm = ({ handleCancel, payment }) => {
       //   console.log(data)
     } catch (err) {
       console.log(err);
+      toast.error("Failed to fetch payment intent. Please try again.");
     }
   };
 
@@ -41,6 +43,7 @@ const CheckoutForm = ({ handleCancel, payment }) => {
     if (!stripe || !elements) {
       // Stripe.js has not loaded yet. Make sure to disable
       // form submission until Stripe.js has loaded.
+      toast.error("Stripe.js has not loaded yet. Please wait and try again.");
       return;
     }
 
@@ -50,6 +53,7 @@ const CheckoutForm = ({ handleCancel, payment }) => {
     const card = elements.getElement(CardElement);
 
     if (card == null) {
+      toast.error("Card information is not provided.");
       return;
     }
 
@@ -90,8 +94,15 @@ const CheckoutForm = ({ handleCancel, payment }) => {
       } catch (err) {
         console.log(err);
       } finally {
-        toast.success(paymentIntent.id);
-        navigate("/dashboard/payment-history");
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: `transaction successful : ${paymentIntent.id}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        // toast.success(paymentIntent.id);
+        navigate("/dashboard/registered-camps");
       }
       // console.log(paymentInfo);
     }
