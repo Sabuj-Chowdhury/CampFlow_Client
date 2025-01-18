@@ -1,8 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const PopularCard = ({ camp }) => {
-  const navigate = useNavigate();
-
   const {
     campName,
     imageURL,
@@ -17,11 +15,11 @@ const PopularCard = ({ camp }) => {
   return (
     <div className="bg-gray-100 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
       {/* Image Section */}
-      <div className="w-full h-48">
+      <div className="w-full h-96">
         <img
           src={imageURL}
           alt={campName}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover "
         />
       </div>
 
@@ -43,17 +41,13 @@ const PopularCard = ({ camp }) => {
         <p className="text-gray-600 mb-3">
           <strong>Participants:</strong> {count}
         </p>
-
-        {/* "See All Camps" Button */}
-        <button
-          onClick={() => navigate("available-camps")}
-          className="w-full bg-gray-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-gray-700 transition"
-        >
-          See All Camps
-        </button>
       </div>
     </div>
   );
 };
 
 export default PopularCard;
+
+PopularCard.propTypes = {
+  camp: PropTypes.object,
+};

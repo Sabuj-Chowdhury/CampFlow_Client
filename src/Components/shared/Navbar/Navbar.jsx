@@ -71,8 +71,6 @@ const Navbar = () => {
                 className="flex items-center gap-2 cursor-pointer"
                 onClick={toggleDropdown}
               >
-                {/* user name */}
-                <span className="text-sm">Hello, {user?.displayName}</span>
                 {/* user image */}
                 <img
                   src={user?.photoURL}
