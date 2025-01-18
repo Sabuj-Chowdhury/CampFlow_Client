@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Banner from "../../Components/Banner/Banner";
 import PopularCamps from "../../Components/PopularCamps/PopularCamps";
 import Reviews from "./Reviews";
+import ContactUs from "./ContactUs";
 
 const Home = () => {
   return (
@@ -19,6 +20,9 @@ const Home = () => {
 
       {/* Feedback and Ratings */}
       <Reviews></Reviews>
+
+      {/* Contact us */}
+      <ContactUs />
     </div>
   );
 };
