@@ -3,18 +3,49 @@ import SectionTitle from "../../../../Components/shared/SectionTitle/SectionTitl
 import ReactStars from "react-rating-stars-component";
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../../../Components/shared/LoadingSpinner/LoadingSpinner";
+import { useNavigate } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 const AddReview = () => {
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
+  const [loading, setLoading] = useState(false);
+  const axiosSecure = useAxiosSecure();
+  //   const { id } = useParams();
+  const navigate = useNavigate();
 
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
+
+    const reviewData = {
+      rating,
+      reviewText,
+    };
+
+    // api call to save reviews in review collection
+    try {
+      await axiosSecure.post(`/review`, reviewData);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+      toast.success("Thank you for your feedback!");
+      navigate("/");
+    }
+    // console.log(reviewData);
   };
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="max-w-7xl mx-auto min-h-screen px-4 py-8 bg-gray-50 rounded-lg shadow-lg">
