@@ -57,12 +57,16 @@ const UserRegisterCampTable = ({ idx, registration, handleCustomDelete }) => {
         )}
       </td>
 
+      {/* should i take a attribute to manage review only one time ? */}
+
       {/* FEEDBACK button */}
       <td className="px-6 py-4 text-sm">
         {status === "confirmed" ? (
-          <button className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-700 transition">
-            Leave Feedback
-          </button>
+          <Link to={`/dashboard/add-review/${_id}`}>
+            <button className="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-700 transition">
+              Leave Feedback
+            </button>
+          </Link>
         ) : (
           <span className="text-gray-400  text-center cursor-not-allowed">
             Not Available
