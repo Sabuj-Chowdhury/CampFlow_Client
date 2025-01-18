@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import SectionTitle from "../../Components/shared/SectionTitle/SectionTitle";
 import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinner";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import ReactStars from "react-rating-stars-component";
+import ReactStarsRating from "react-awesome-stars-rating";
 import Marquee from "react-fast-marquee";
 
 const Reviews = () => {
@@ -41,10 +41,13 @@ const Reviews = () => {
             >
               {/* Rating Display */}
               <div className="flex items-center space-x-2">
-                <ReactStars
+                <ReactStarsRating
                   count={5}
                   size={24}
+                  starGap={1}
                   value={review.rating}
+                  className="flex"
+                  isHalf={true}
                   edit={false}
                   activeColor="#ffd700"
                 />
