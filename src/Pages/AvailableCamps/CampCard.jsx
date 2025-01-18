@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const CampCard = ({ camp }) => {
@@ -16,11 +17,11 @@ const CampCard = ({ camp }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col h-full w-full max-w-screen-md mx-auto">
       {/* Image Section */}
-      <div className="h-40">
+      <div className="w-full h-96">
         <img
           src={imageURL}
           alt={campName}
-          className="h-full w-full object-cover"
+          className={`h-full w-full object-cover `}
         />
       </div>
 
@@ -51,7 +52,7 @@ const CampCard = ({ camp }) => {
         </p>
 
         {/* Participant Count */}
-        <p className="text-gray-600 text-sm mb-4">
+        <p className="text-gray-600 text-sm mb-2">
           <span className="font-medium">Participants:</span> {count}
         </p>
 
@@ -72,3 +73,7 @@ const CampCard = ({ camp }) => {
 };
 
 export default CampCard;
+
+CampCard.propTypes = {
+  camp: PropTypes.object,
+};
