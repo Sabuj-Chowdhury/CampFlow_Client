@@ -73,6 +73,7 @@ const ManageRegisteredUser = () => {
                   key={index}
                   registeredUser={registeredUser}
                   index={index}
+                  refetch={refetch}
                 ></ManageRegistrationTable>
               ))}
             </tbody>

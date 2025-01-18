@@ -1,16 +1,35 @@
 import PropTypes from "prop-types";
 import { Button } from "@material-tailwind/react";
 import { useState } from "react";
+import LoadingSpinner from "../../../../Components/shared/LoadingSpinner/LoadingSpinner";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
-const ManageRegistrationTable = ({ index, registeredUser }) => {
+const ManageRegistrationTable = ({ index, registeredUser, refetch }) => {
   const [loading, setLoading] = useState(false);
+  const axiosSecure = useAxiosSecure();
   const { camp_name, price, participant, status, _id, payment_status } =
     registeredUser || {};
 
   // update handler
   const handleConfirmation = async (id) => {
-    console.log(id);
+    setLoading(true);
+
+    try {
+      await axiosSecure.patch(`/registration/${id}`);
+      refetch();
+      toast.success("Confirmed successfully!");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+    // console.log(id);
   };
+
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
   return (
     <tr className="hover:bg-gray-50 transition border-b border-gray-300">
@@ -77,6 +96,6 @@ export default ManageRegistrationTable;
 
 ManageRegistrationTable.propTypes = {
   index: PropTypes.number,
-  handleCustomDelete: PropTypes.func,
+  refetch: PropTypes.func,
   registeredUser: PropTypes.object,
 };

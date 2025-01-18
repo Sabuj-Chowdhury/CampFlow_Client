@@ -18,7 +18,7 @@ const PaymentHistory = () => {
     },
   });
 
-  console.log(paymentHistory);
+  // console.log(paymentHistory);
   return (
     <div className="max-w-7xl mx-auto">
       {/* title */}
@@ -33,10 +33,13 @@ const PaymentHistory = () => {
         // Default message when no registrations are found
         <div className="text-center mt-12">
           <p className="text-lg text-gray-700">
-            You have no registered camps at the moment.
+            You have not made any Payment yet.
           </p>
-          <Link to="/available-camps" className=" mt-4 px-6 py-2 text-blue-500">
-            Explore Camps
+          <Link
+            to="/dashboard/registered-camps"
+            className=" mt-4 px-6 py-2 text-blue-500"
+          >
+            Registered Camps
           </Link>
         </div>
       ) : (

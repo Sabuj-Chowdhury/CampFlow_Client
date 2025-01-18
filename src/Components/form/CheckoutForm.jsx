@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const CheckoutForm = ({ handleCancel, payment }) => {
   // console.log(payment);
   const [clientSecret, setClientSecret] = useState("");
-  console.log(clientSecret);
+  // console.log(clientSecret);
 
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ const CheckoutForm = ({ handleCancel, payment }) => {
     if (error) {
       console.log("[error]", error);
     } else {
-      console.log("[PaymentMethod]", paymentMethod);
+      // console.log("[PaymentMethod]", paymentMethod);
     }
 
     // show confirm payment
