@@ -14,9 +14,9 @@ const AvailableCamps = () => {
   // console.log(filter);
 
   const { data: campsData = [], isLoading } = useQuery({
-    queryKey: ["campsData"],
+    queryKey: ["campsData", filter],
     queryFn: async () => {
-      const { data } = await axiosPublic.get("/available-camps");
+      const { data } = await axiosPublic.get(`/available-camps?sort=${filter}`);
       return data;
     },
   });
@@ -45,7 +45,7 @@ const AvailableCamps = () => {
           >
             <option value="">Select</option>
             <option value="count">Most Registered</option>
-            <option value="camp-fees">Camp Fees</option>
+            <option value="camp-fees">Camp Fees(High to Low)</option>
             <option value="alphabetical">Alphabetical Order (Camp Name)</option>
           </select>
 

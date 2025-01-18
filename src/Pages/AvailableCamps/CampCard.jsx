@@ -1,3 +1,4 @@
+import { Button } from "@material-tailwind/react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
@@ -11,6 +12,7 @@ const CampCard = ({ camp }) => {
     imageURL,
     date,
     time,
+    price,
     count,
   } = camp || {};
 
@@ -32,12 +34,15 @@ const CampCard = ({ camp }) => {
           {campName}
         </h2>
 
-        {/* Date and Time */}
+        {/* Date and Time and Price */}
         <p className="text-gray-600 text-sm">
           <span className="font-medium">Date:</span> {date}
         </p>
         <p className="text-gray-600 text-sm mb-2">
           <span className="font-medium">Time:</span> {time}
+        </p>
+        <p className="text-gray-600 text-sm mb-2">
+          <span className="font-medium">Price:</span> {price}
         </p>
 
         {/* Location */}
@@ -62,9 +67,9 @@ const CampCard = ({ camp }) => {
         {/* Details Button */}
         <div className="mt-auto">
           <Link to={`/camp-details/${_id}`}>
-            <button className="bg-teal-600 text-white py-2 px-4 w-full rounded-md hover:bg-teal-700 transition-all">
+            <Button className="bg-teal-600 text-white py-4  w-full rounded-md ">
               View Details
-            </button>
+            </Button>
           </Link>
         </div>
       </div>

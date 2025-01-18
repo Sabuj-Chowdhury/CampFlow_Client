@@ -1,12 +1,13 @@
-// import { FaGoogle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinner";
+
 import SocialLogin from "../../Components/shared/SocialLogin/SocialLogin";
+import { TbFidgetSpinner } from "react-icons/tb";
+import { Button } from "@material-tailwind/react";
 
 const Login = () => {
   const { signIn } = useAuth();
@@ -34,10 +35,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-
-  if (loading) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
 
   return (
     // outer container
@@ -92,12 +89,20 @@ const Login = () => {
             />
           </div>
 
-          <button
+          <Button
             type="submit"
-            className="w-full bg-teal-700 text-white py-2 px-4 rounded-lg font-bold text-lg hover:bg-teal-800 transition"
+            disabled={loading}
+            className="w-full bg-teal-700 text-white py-2 px-4 rounded-lg font-bold text-lg "
           >
-            Sign In
-          </button>
+            {loading ? (
+              <div className="flex items-center justify-center gap-2 text-center">
+                <TbFidgetSpinner className="animate-spin"></TbFidgetSpinner>{" "}
+                logging in ..
+              </div>
+            ) : (
+              <>Sign In</>
+            )}
+          </Button>
         </form>
 
         {/* Divider */}

@@ -85,9 +85,10 @@ const Navbar = () => {
               {dropdownOpen && (
                 <div
                   className="  absolute top-16 -mt-3 -right-3
-                 bg-white text-teal-700 rounded shadow-lg w-40"
+                 bg-white text-teal-700 rounded shadow-lg w-40 text-center"
                 >
                   {/* dashboard */}
+                  <p className=" text-center">{user.displayName}</p>
                   <NavLink
                     to="/dashboard"
                     className="block px-4 py-2 hover:bg-teal-100"
@@ -99,16 +100,18 @@ const Navbar = () => {
                     Dashboard
                   </NavLink>
                   {/* logout */}
-                  <button
-                    onClick={() => {
-                      onLogout();
-                      setDropdownOpen(false);
-                      setMenuOpen(false);
-                    }}
-                    className="block w-full text-left px-4 py-2 hover:bg-teal-100"
-                  >
-                    Logout
-                  </button>
+                  <div>
+                    <button
+                      onClick={() => {
+                        onLogout();
+                        setDropdownOpen(false);
+                        setMenuOpen(false);
+                      }}
+                      className="block w-full  px-4 py-2 hover:bg-teal-100"
+                    >
+                      Logout
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
