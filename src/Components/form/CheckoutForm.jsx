@@ -9,9 +9,12 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
+import { TbFidgetSpinner } from "react-icons/tb";
+
 const CheckoutForm = ({ handleCancel, payment }) => {
   // console.log(payment);
   const [clientSecret, setClientSecret] = useState("");
+  const [buttonLoading, setButtonLoading] = useState(false);
   // console.log(clientSecret);
 
   const axiosSecure = useAxiosSecure();
@@ -37,6 +40,7 @@ const CheckoutForm = ({ handleCancel, payment }) => {
   const elements = useElements();
 
   const handleSubmit = async (event) => {
+    setButtonLoading(true);
     // Block native form submission.
     event.preventDefault();
 
@@ -94,6 +98,7 @@ const CheckoutForm = ({ handleCancel, payment }) => {
       } catch (err) {
         console.log(err);
       } finally {
+        setButtonLoading(false);
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -133,7 +138,16 @@ const CheckoutForm = ({ handleCancel, payment }) => {
       <div className="mt-6 flex flex-row justify-around gap-4">
         {/* Pay now button*/}
         <Button type="submit" disabled={!stripe}>
-          Pay <span className="text-yellow-200">${payment?.price}</span> Now
+          {buttonLoading ? (
+            <div className="flex items-center justify-center gap-2 text-center">
+              <TbFidgetSpinner className="animate-spin"></TbFidgetSpinner>{" "}
+              please wait ..
+            </div>
+          ) : (
+            <>
+              Pay <span className="text-yellow-200">${payment?.price}</span> Now
+            </>
+          )}
         </Button>
 
         {/* cancel button */}

@@ -5,8 +5,9 @@ import { Button } from "@material-tailwind/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import LoadingSpinner from "../../../../Components/shared/LoadingSpinner/LoadingSpinner";
+
 import { useNavigate } from "react-router-dom";
+import { TbFidgetSpinner } from "react-icons/tb";
 // import { useParams } from "react-router-dom";
 
 const AddReview = () => {
@@ -42,10 +43,6 @@ const AddReview = () => {
     }
     // console.log(reviewData);
   };
-
-  if (loading) {
-    return <LoadingSpinner />;
-  }
 
   return (
     <div className="max-w-7xl mx-auto min-h-screen px-4 py-8 bg-gray-50 rounded-lg shadow-lg">
@@ -98,10 +95,18 @@ const AddReview = () => {
 
         {/* Submit Button */}
         <Button
+          disabled={loading}
           type="submit"
           className="w-full md:w-auto px-6 py-3 bg-blue-600 text-white font-medium text-lg rounded-md hover:bg-blue-700 transition"
         >
-          Submit Review
+          {loading ? (
+            <div className="flex items-center justify-center gap-2 text-center">
+              <TbFidgetSpinner className="animate-spin"></TbFidgetSpinner>{" "}
+              submitting ..
+            </div>
+          ) : (
+            <>Submit Review</>
+          )}
         </Button>
       </form>
     </div>
