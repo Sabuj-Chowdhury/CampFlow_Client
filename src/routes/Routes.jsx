@@ -20,6 +20,7 @@ import PaymentHistory from "../Pages/Dashboard/User/PaymentHistory";
 import Payment from "../Pages/Dashboard/User/Payment/Payment";
 import UpdateCamp from "../Pages/Dashboard/Admin/Update/UpdateCamp";
 import AddReview from "../Pages/Dashboard/User/AddReview/AddReview";
+import UserRoutes from "./UserRoutes";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
-        path: "/",
+        index: true,
         element: <Home />,
       },
       {
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      // ****common routes*****
       {
         index: true,
         element: (
@@ -67,6 +69,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      // ****ADMIN routes******
       {
         path: "add-camp",
         element: (
@@ -90,31 +93,75 @@ const router = createBrowserRouter([
       },
       {
         path: "manage-registered-camps",
-        element: <ManageRegisteredUser></ManageRegisteredUser>,
-      },
-      {
-        path: "analytics",
-        element: <Analytics></Analytics>,
-      },
-      {
-        path: "registered-camps",
-        element: <RegisteredCamps></RegisteredCamps>,
-      },
-      {
-        path: "payment-history",
-        element: <PaymentHistory></PaymentHistory>,
-      },
-      {
-        path: "pay/:id",
-        element: <Payment></Payment>,
+        element: (
+          <PrivateRoute>
+            <AdminRoutes>
+              <ManageRegisteredUser></ManageRegisteredUser>
+            </AdminRoutes>
+          </PrivateRoute>
+        ),
       },
       {
         path: "update-camp/:campId",
-        element: <UpdateCamp></UpdateCamp>,
+        element: (
+          <PrivateRoute>
+            <AdminRoutes>
+              <UpdateCamp></UpdateCamp>
+            </AdminRoutes>
+          </PrivateRoute>
+        ),
+      },
+      // *****User routes******
+      {
+        path: "analytics",
+        element: (
+          <PrivateRoute>
+            <UserRoutes>
+              <Analytics></Analytics>
+            </UserRoutes>
+          </PrivateRoute>
+        ),
       },
       {
+        path: "registered-camps",
+        element: (
+          <PrivateRoute>
+            <UserRoutes>
+              <RegisteredCamps></RegisteredCamps>
+            </UserRoutes>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "payment-history",
+        element: (
+          <PrivateRoute>
+            <UserRoutes>
+              <PaymentHistory></PaymentHistory>
+            </UserRoutes>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "pay/:id",
+        element: (
+          <PrivateRoute>
+            <UserRoutes>
+              <Payment></Payment>
+            </UserRoutes>
+          </PrivateRoute>
+        ),
+      },
+
+      {
         path: "add-review/:id",
-        element: <AddReview></AddReview>,
+        element: (
+          <PrivateRoute>
+            <UserRoutes>
+              <AddReview></AddReview>
+            </UserRoutes>
+          </PrivateRoute>
+        ),
       },
     ],
   },
