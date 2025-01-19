@@ -11,12 +11,15 @@ const AvailableCamps = () => {
   const axiosPublic = useAxiosPublic();
   const [filter, setFilter] = useState("");
   const [layout, setLayout] = useState("3col");
-  // console.log(filter);
+  const [search, setSearch] = useState("");
+  // console.log(search);
 
   const { data: campsData = [], isLoading } = useQuery({
-    queryKey: ["campsData", filter],
+    queryKey: ["campsData", filter, search],
     queryFn: async () => {
-      const { data } = await axiosPublic.get(`/available-camps?sort=${filter}`);
+      const { data } = await axiosPublic.get(
+        `/available-camps?sort=${filter}&search=${search}`
+      );
       return data;
     },
   });
@@ -52,6 +55,7 @@ const AvailableCamps = () => {
           {/* Search Bar */}
           <div className="flex items-center w-full md:w-7/12 sm:w-auto">
             <input
+              onBlur={(e) => setSearch(e.target.value)}
               type="text"
               placeholder="Search camps..."
               className="flex-grow border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none"

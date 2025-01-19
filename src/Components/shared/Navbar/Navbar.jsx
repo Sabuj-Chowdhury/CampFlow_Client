@@ -147,8 +147,9 @@ const Navbar = () => {
               {dropdownOpen && (
                 <div
                   className="  absolute top-16 -mt-3 -right-10
-                 bg-white text-teal-700 rounded shadow-lg w-40"
+                 bg-white text-teal-700 rounded shadow-lg w-40 text-center"
                 >
+                  <p className=" text-center">{user.displayName}</p>
                   {/* dashboard */}
                   <NavLink
                     to="/dashboard"
@@ -167,7 +168,7 @@ const Navbar = () => {
                       setDropdownOpen(false);
                       setMenuOpen(false);
                     }}
-                    className="block w-full text-left px-4 py-2 hover:bg-teal-100"
+                    className="block w-full  px-4 py-2 hover:bg-teal-100"
                   >
                     Logout
                   </button>
