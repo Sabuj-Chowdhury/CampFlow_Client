@@ -12,10 +12,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import LoadingSpinner from "../shared/LoadingSpinner/LoadingSpinner";
+
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const JoinCampModal = ({ open, onClose, campDetails, user }) => {
   const { campName, price, location, professionalName, _id } =
@@ -69,10 +70,6 @@ const JoinCampModal = ({ open, onClose, campDetails, user }) => {
 
     // console.log(registrationData);
   };
-
-  if (loading) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
 
   return (
     <Dialog
@@ -168,8 +165,20 @@ const JoinCampModal = ({ open, onClose, campDetails, user }) => {
           <Button variant="text" color="red" onClick={onClose} className="mr-2">
             <span>Cancel</span>
           </Button>
-          <Button type="submit" variant="gradient" color="green">
-            <span>Confirm</span>
+          <Button
+            disabled={loading}
+            type="submit"
+            variant="gradient"
+            color="green"
+          >
+            {loading ? (
+              <div className="flex items-center justify-center gap-2 text-center">
+                <TbFidgetSpinner className="animate-spin"></TbFidgetSpinner>{" "}
+                submitting ..
+              </div>
+            ) : (
+              <span>Confirm</span>
+            )}
           </Button>
         </DialogFooter>
       </form>

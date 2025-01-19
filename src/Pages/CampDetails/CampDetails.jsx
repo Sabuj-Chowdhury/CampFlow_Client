@@ -90,9 +90,9 @@ const CampDetails = () => {
           </div>
           <Button
             onClick={handleModalOpen}
-            disabled={!user || isAdmin}
+            disabled={isAdmin}
             className={`mt-6 w-full py-4 ${
-              !user || isAdmin
+              isAdmin
                 ? "bg-gray-400 text-gray-200 cursor-not-allowed"
                 : "bg-teal-600 text-white"
             }`}

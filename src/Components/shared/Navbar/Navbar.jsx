@@ -75,7 +75,7 @@ const Navbar = () => {
                 <img
                   src={user?.photoURL}
                   alt="user"
-                  className="h-10 w-10 rounded-full object-cover border-2 border-white"
+                  className="h-10 w-10 rounded-full object-cover "
                   referrerPolicy="no-referrer"
                 />
                 {/* Dropdown arrow */}
@@ -138,7 +138,7 @@ const Navbar = () => {
                 <img
                   src={user?.photoURL}
                   alt="user"
-                  className="h-10 w-10 rounded-full object-cover border-2 border-white"
+                  className="h-10 w-10 rounded-full object-cover "
                   referrerPolicy="no-referrer"
                 />
                 {/* Dropdown arrow */}

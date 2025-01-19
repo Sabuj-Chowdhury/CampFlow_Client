@@ -25,6 +25,8 @@ const RegisteredCamps = () => {
     },
   });
 
+  // console.log(myRegistrations);
+
   // cancel registration
 
   const handleDelete = async (id) => {

@@ -32,7 +32,7 @@ const CheckoutForm = ({ handleCancel, payment }) => {
       //   console.log(data)
     } catch (err) {
       console.log(err);
-      toast.error("Failed to fetch payment intent. Please try again.");
+      // toast.success("please wait..");
     }
   };
 
