@@ -8,6 +8,7 @@ import { FaThLarge, FaTh } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import LazyLoad from "react-lazyload";
 import Pagination from "../../Components/paginationUI/Pagination";
+import { Button } from "@material-tailwind/react";
 
 const AvailableCamps = () => {
   const axiosPublic = useAxiosPublic();
@@ -31,6 +32,13 @@ const AvailableCamps = () => {
       return data;
     },
   });
+
+  // handle reset
+  const handleReset = () => {
+    setFilter("");
+    setSearch("");
+    setLayout("");
+  };
 
   const totalPages = Math.ceil(campsData.length / itemsPerPage);
 
@@ -68,7 +76,7 @@ const AvailableCamps = () => {
           </select>
 
           {/* Search Bar */}
-          <div className="flex items-center w-full md:w-7/12 sm:w-auto">
+          <div className="flex items-center gap-2 w-full md:w-7/12 sm:w-auto">
             <input
               onBlur={(e) => setSearch(e.target.value)}
               type="text"
@@ -78,6 +86,8 @@ const AvailableCamps = () => {
             <button className="bg-teal-600 text-white px-4 py-2 rounded-r-lg hover:bg-teal-700 transition">
               Search
             </button>
+            {/* reset */}
+            <Button onClick={handleReset}>Reset</Button>
           </div>
 
           {/* Layout Toggle Icons */}

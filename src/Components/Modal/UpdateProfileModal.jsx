@@ -67,20 +67,16 @@ const UpdateProfileModal = ({ open, onClose, profile, refetch }) => {
       await updateUserProfile(name, imageUrl);
 
       // API call to update user data
-      const { data } = await axiosSecure.patch(
-        `/user/update/${_id}`,
-        updateData
-      );
-
-      refetch();
-      toast.success("Profile updated successfully!");
-      // Close the modal after successful update
-      onClose();
+      await axiosSecure.patch(`/user/update/${_id}`, updateData);
     } catch (err) {
       console.log(err);
       toast.error("Failed to update profile.");
     } finally {
       setLoading(false);
+      toast.success("Profile updated successfully!");
+      refetch();
+      // Close the modal after successful update
+      onClose();
     }
   };
 
