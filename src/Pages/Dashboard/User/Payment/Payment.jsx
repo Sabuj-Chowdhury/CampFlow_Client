@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../../../../Components/form/CheckoutForm";
+import LoadingSpinner from "../../../../Components/shared/LoadingSpinner/LoadingSpinner";
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY); //stripe public key
 
 const Payment = () => {
@@ -31,6 +32,10 @@ const Payment = () => {
   const handleCancel = () => {
     navigate("/dashboard/registered-camps"); // Redirect to registered camps
   };
+
+  if (isLoading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4">

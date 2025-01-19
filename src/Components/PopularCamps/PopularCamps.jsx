@@ -5,6 +5,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import PopularCard from "../../Pages/Home/PopularCard";
 import { Button } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+import LazyLoad from "react-lazyload";
 
 const PopularCamps = () => {
   const axiosPublic = useAxiosPublic();
@@ -36,7 +37,9 @@ const PopularCamps = () => {
       {/* Popular Camps Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 my-5">
         {popular.map((camp, idx) => (
-          <PopularCard key={idx} camp={camp} />
+          <LazyLoad key={idx} height={300} once>
+            <PopularCard camp={camp} />
+          </LazyLoad>
         ))}
       </div>
 

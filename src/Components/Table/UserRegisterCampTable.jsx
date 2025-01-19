@@ -2,7 +2,7 @@ import { Button } from "@material-tailwind/react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const UserRegisterCampTable = ({ idx, registration, handleCustomDelete }) => {
+const UserRegisterCampTable = ({ index, registration, handleCustomDelete }) => {
   // console.log(registration);
 
   const { camp_name, price, participant, status, _id, payment_status } =
@@ -10,7 +10,9 @@ const UserRegisterCampTable = ({ idx, registration, handleCustomDelete }) => {
   return (
     <tr className="hover:bg-gray-50 transition border-b border-gray-300">
       {/* serial */}
-      <td className="px-6 py-4 text-sm border-r border-gray-300">{idx + 1}</td>
+      <td className="px-6 py-4 text-sm border-r border-gray-300">
+        {index + 1}
+      </td>
       {/* camp name */}
       <td className="px-6 py-4 text-sm border-r border-gray-300">
         {camp_name}
@@ -80,7 +82,7 @@ const UserRegisterCampTable = ({ idx, registration, handleCustomDelete }) => {
 export default UserRegisterCampTable;
 
 UserRegisterCampTable.propTypes = {
-  idx: PropTypes.number,
+  index: PropTypes.number,
   handleCustomDelete: PropTypes.func,
 
   registration: PropTypes.object,

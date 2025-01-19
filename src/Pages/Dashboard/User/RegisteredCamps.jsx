@@ -7,10 +7,14 @@ import LoadingSpinner from "../../../Components/shared/LoadingSpinner/LoadingSpi
 import UserRegisterCampTable from "../../../Components/Table/UserRegisterCampTable";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import Pagination from "../../../Components/paginationUI/Pagination";
 
 const RegisteredCamps = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   // fetch registration data
   const {
@@ -62,6 +66,13 @@ const RegisteredCamps = () => {
     });
   };
 
+  // Calculate paginated data
+  const totalPages = Math.ceil(myRegistrations.length / itemsPerPage);
+  const paginatedData = myRegistrations.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -76,7 +87,7 @@ const RegisteredCamps = () => {
       {/* page heading */}
       <SectionTitle heading="Registered Camps" />
 
-      {myRegistrations.length === 0 ? (
+      {paginatedData.length === 0 ? (
         // Default message when no registrations are found
         <div className="text-center mt-12">
           <p className="text-lg text-gray-700">
@@ -87,46 +98,54 @@ const RegisteredCamps = () => {
           </Link>
         </div>
       ) : (
-        // Table
-        <div className="overflow-x-auto rounded-lg">
-          <table className="table-auto mx-auto border border-gray-300 text-left">
-            <thead className="bg-teal-600 text-white border-b border-gray-300">
-              <tr>
-                <th className="border border-gray-200 px-4 py-2 text-left">
-                  Serial no
-                </th>
-                <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
-                  Camp Name
-                </th>
-                <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
-                  Camp Fees
-                </th>
-                <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
-                  Participant Name
-                </th>
-                <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
-                  Payment Status
-                </th>
-                <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
-                  Confirmation Status
-                </th>
-                <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
-                  Cancel
-                </th>
-                <th className="px-6 py-3 text-sm font-medium">Feedback</th>
-              </tr>
-            </thead>
-            <tbody>
-              {myRegistrations.map((registration, idx) => (
-                <UserRegisterCampTable
-                  key={idx}
-                  registration={registration}
-                  idx={idx}
-                  handleCustomDelete={handleCustomDelete}
-                />
-              ))}
-            </tbody>
-          </table>
+        <div>
+          <div className="overflow-x-auto rounded-lg min-h-[calc(100vh-210px)]">
+            <table className="table-auto mx-auto border border-gray-300 text-left">
+              <thead className="bg-teal-600 text-white border-b border-gray-300">
+                <tr>
+                  <th className="border border-gray-200 px-4 py-2 text-left">
+                    Serial no
+                  </th>
+                  <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
+                    Camp Name
+                  </th>
+                  <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
+                    Camp Fees
+                  </th>
+                  <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
+                    Participant Name
+                  </th>
+                  <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
+                    Payment Status
+                  </th>
+                  <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
+                    Confirmation Status
+                  </th>
+                  <th className="px-6 py-3 text-sm font-medium border-r border-gray-300">
+                    Cancel
+                  </th>
+                  <th className="px-6 py-3 text-sm font-medium">Feedback</th>
+                </tr>
+              </thead>
+              <tbody>
+                {paginatedData.map((registration, index) => (
+                  <UserRegisterCampTable
+                    key={index}
+                    registration={registration}
+                    index={index + (currentPage - 1) * itemsPerPage}
+                    handleCustomDelete={handleCustomDelete}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="flex items-center justify-center my-5">
+            <Pagination
+              totalPages={totalPages}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+            />
+          </div>
         </div>
       )}
     </div>
