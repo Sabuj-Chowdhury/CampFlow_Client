@@ -1,7 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../../Components/shared/LoadingSpinner/LoadingSpinner";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import {
   FaCampground,
@@ -13,15 +12,16 @@ import {
 } from "react-icons/fa";
 import RegistrationPieChart from "./Charts/RegistrationPieChart";
 import ConfirmationBarChart from "./Charts/ConfirmationBarChart";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const Analytics = () => {
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const { data: userStats = {}, isLoading } = useQuery({
     queryKey: ["userStats", user.email],
     queryFn: async () => {
-      const { data } = await axiosPublic(`/user-stats/${user.email}`);
+      const { data } = await axiosSecure(`/user-stats/${user.email}`);
       return data;
     },
   });
