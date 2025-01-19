@@ -5,8 +5,10 @@ import { imageUpload } from "../../utils/ImageBB/imagebbAPI";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
-import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinner";
+
 import SocialLogin from "../../Components/shared/SocialLogin/SocialLogin";
+import { TbFidgetSpinner } from "react-icons/tb";
+import { Button } from "@material-tailwind/react";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, logOut } = useAuth();
@@ -38,7 +40,7 @@ const SignUp = () => {
 
     try {
       // User Registration
-      const data = await createUser(email, password);
+      await createUser(email, password);
 
       // Save username & profile photo
       await updateUserProfile(name, photoURL);
@@ -61,10 +63,6 @@ const SignUp = () => {
       reset();
     }
   };
-
-  if (loading) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-teal-700">
@@ -171,12 +169,20 @@ const SignUp = () => {
             </span>
           )}
 
-          <button
+          <Button
             type="submit"
-            className="w-full bg-teal-700 text-white py-2 px-4 rounded-lg font-bold text-lg hover:bg-teal-800 transition"
+            disabled={loading}
+            className="w-full bg-teal-700 text-white py-2 rounded-lg font-bold text-lg "
           >
-            Sign Up
-          </button>
+            {loading ? (
+              <div className="flex justify-center items-center gap-2">
+                <TbFidgetSpinner className="animate-spin"></TbFidgetSpinner>{" "}
+                Signing up ..
+              </div>
+            ) : (
+              <>Sign Up</>
+            )}
+          </Button>
         </form>
 
         {/* Divider */}
