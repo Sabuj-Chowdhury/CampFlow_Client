@@ -241,7 +241,7 @@ CampFlow is a comprehensive MERN stack application designed to manage and coordi
 
 ### Home Page
 
-![Home Page](/client/src/assets/Home.png)
+![Home Page](./public/Home.png)
 
 ### Popular Camps Cards
 
