@@ -1,10 +1,40 @@
-# Medical Camp Management System (CampFlow) - README
+# CamFlow
 
-## Project Overview
-
-CampFlow is a comprehensive MERN stack application designed to manage and coordinate medical camps efficiently. The platform provides distinct functionalities for organizers and participants, offering features such as camp registration, feedback, analytics, and payment management.
+CamFlow is a web-based application designed to streamline the management and coordination of medical camps. It provides an intuitive platform for organizers and participants to manage and register for medical camps efficiently.
 
 ## Features
+
+- **Dynamic Camp Cards**: Display medical camp information in an interactive and visually appealing card layout.
+- **Category Navigation**: Easily filter and explore camps by category or specialty.
+- **Interactive Dashboards**: Dedicated dashboards for organizers and participants to manage camps and registrations.
+- **Responsive Design**: Ensures seamless functionality across devices.
+- **Secure Payment Integration**: Simplifies participant payments with Stripe.
+
+## Components
+
+### 1. **Banner**
+
+A hero section with a visually appealing background to grab users' attention.
+
+### 2. **Cards**
+
+Displays camp details like name, category, type, location, date, and healthcare professional. Includes options for registration or management based on user roles.
+
+### 3. **Categories**
+
+Provides category-based navigation using React Router's `NavLink`.
+
+### 4. **CampCards**
+
+Manages the display of camps based on the selected category or default view.
+
+### 5. **Footer**
+
+A footer component with social media links and copyright information.
+
+### 6. **Heading**
+
+Reusable component to display page titles and subtitles.
 
 ### Home Page
 
@@ -119,65 +149,103 @@ CampFlow is a comprehensive MERN stack application designed to manage and coordi
   - Uses react-hook-form for validation.
   - Email verification and password reset not enforced.
 
-### Challenges and Enhancements
+## Installation
 
-- **Pagination:**
+### Prerequisites
 
-  - Implemented at the footer of all tables (10 rows per page).
+- Node.js (v16 or higher)
+- npm or yarn
 
-- **Search:**
-
-  - Search bar added to all tables for filtering data by keywords (Camp Name, Date, Healthcare Professional Name).
-
-- **JWT Authentication:**
-  - Secures sensitive routes with JSON Web Token.
-  - JWT managed using local storage.
-
-## Technology Stack
-
-- **Frontend:** React, TailwindCSS, Recharts.
-- **Backend:** Express, MongoDB Atlas.
-- **Authentication:** Firebase, JWT.
-- **Payment:** Stripe.
-- **State Management:** React Context API.
-- **Form Handling:** React Hook Form.
-
-## Setup Instructions
+### Steps
 
 1. Clone the repository:
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/Sabuj-Chowdhury/CampFlow_Client.git
    ```
-2. Navigate to the project directory:
+2. Clone the server repository:
    ```bash
-   cd medical-camp-management
+   git clone https://github.com/Sabuj-Chowdhury/CampFlow_Server.git
    ```
-3. Install dependencies:
+3. Navigate to the project directory:
+   ```bash
+   cd camflow
+   ```
+4. Install dependencies:
    ```bash
    npm install
+   # or
+   yarn install
    ```
-4. Configure environment variables:
-   - Create a `.env` file in the root directory and add:
-     ```env
-     MONGO_URI=<your-mongodb-uri>
-     JWT_SECRET=<your-jwt-secret>
-     STRIPE_SECRET_KEY=<your-stripe-secret-key>
-     ```
-5. Start the backend server:
-   ```bash
-   npm run server
+5. Create a `.env.local` file in the root directory and add the following keys:
+   ```env
+   VITE_apiKey=
+   VITE_authDomain=
+   VITE_projectId=
+   VITE_storageBucket=
+   VITE_messagingSenderId=
+   VITE_appId=
+   VITE_URL=
+   VITE_STRIPE_PUBLIC_KEY=
+   VITE_imageBB_CLIENT_API_KEY=
    ```
-6. Start the frontend:
+6. Start the development server:
    ```bash
    npm start
+   # or
+   yarn start
    ```
+7. Open your browser and go to `http://localhost:3000` to see the application.
 
-## Future Improvements
+## Admin/Organizer Login Details
 
-- Add email verification and password reset features.
-- Enhance analytics with more detailed participant and organizer insights.
-- Integrate advanced search and filtering options.
+- **Email:** admin@gmail.com
+- **Password:** BZm9AI2x
 
----
+## Dependencies
 
-This README serves as a comprehensive guide to the CampFlow project, detailing its features, functionality, and setup instructions. For further assistance, refer to the project documentation or contact the development team.
+```json
+"dependencies": {
+  "@heroicons/react": "^2.2.0",
+  "@material-tailwind/react": "^2.1.10",
+  "@react-icons/all-files": "^4.1.0",
+  "@stripe/react-stripe-js": "^3.1.1",
+  "@stripe/stripe-js": "^5.5.0",
+  "@tanstack/react-query": "^5.64.1",
+  "axios": "^1.7.9",
+  "firebase": "^11.1.0",
+  "prop-types": "^15.8.1",
+  "react": "^18.3.1",
+  "react-awesome-stars-rating": "^0.16.2",
+  "react-dom": "^18.3.1",
+  "react-fast-marquee": "^1.6.5",
+  "react-helmet-async": "^2.0.5",
+  "react-hook-form": "^7.54.2",
+  "react-hot-toast": "^2.5.1",
+  "react-icons": "^5.4.0",
+  "react-lazyload": "^3.2.1",
+  "react-rating-stars-component": "^2.2.0",
+  "react-router-dom": "^7.1.1",
+  "react-spinners": "^0.15.0",
+  "recharts": "^2.15.0",
+  "sweetalert2": "^11.15.10",
+  "swiper": "^11.2.1"
+}
+```
+
+## Technologies Used
+
+- **React.js**: Component-based library for building the UI.
+- **React Router**: For navigation and routing.
+- **Tailwind CSS**: For styling the application.
+- **PropTypes**: For type-checking React props.
+- **Firebase**: Backend as a Service for authentication and data storage.
+- **Axios**: Promise-based HTTP client for API calls.
+- **React Query**: For data fetching and state management.
+- **Stripe.js**: For payment integration.
+- **Recharts**: For data visualization.
+- **Swiper.js**: For creating carousels and sliders.
+- **SweetAlert2**: For creating beautiful and responsive popups.
+- **React Hook Form**: For form handling and validation.
+- **React Icons**: For adding icons in components.
+- **React Lazyload**: For improving performance by lazy-loading components.
+- **React Helmet Async**: For managing the document head dynamically.
