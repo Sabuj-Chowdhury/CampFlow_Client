@@ -37,8 +37,8 @@ const RegisteredCamps = () => {
   });
 
   const { myRegistrations = [], allRegistrations = [] } = data;
-  console.log("all :", allRegistrations.length);
-  console.log("paginate", myRegistrations.length);
+  // console.log("all :", allRegistrations.length);
+  // console.log("paginate", myRegistrations.length);
 
   // console.log(myRegistrations);
 
