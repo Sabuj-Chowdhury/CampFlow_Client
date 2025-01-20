@@ -4,6 +4,7 @@ import { useState } from "react";
 import LoadingSpinner from "../../../../Components/shared/LoadingSpinner/LoadingSpinner";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const ManageRegistrationTable = ({ index, registeredUser, refetch }) => {
   const [loading, setLoading] = useState(false);
@@ -27,7 +28,7 @@ const ManageRegistrationTable = ({ index, registeredUser, refetch }) => {
     // console.log(id);
   };
 
-  // cancel handler
+  // cancel/DELETE handler
   const handleDelete = async (id) => {
     setLoading(true);
 
@@ -41,6 +42,27 @@ const ManageRegistrationTable = ({ index, registeredUser, refetch }) => {
       setLoading(false);
     }
     // console.log(id);
+  };
+
+  const handleCustomDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, cancel it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete(id);
+        Swal.fire({
+          title: "Canceled!",
+          text: "Registration has been canceled.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   if (loading) {
@@ -100,7 +122,7 @@ const ManageRegistrationTable = ({ index, registeredUser, refetch }) => {
           </button>
         ) : (
           <Button
-            onClick={() => handleDelete(_id)}
+            onClick={() => handleCustomDelete(_id)}
             className="bg-red-500 text-white hover:bg-red-700 transition"
           >
             Cancel
