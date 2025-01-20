@@ -30,7 +30,7 @@ const PaymentHistory = () => {
     currentPage * itemsPerPage
   );
 
-  console.log(paginatedData);
+  // console.log(paginatedData);
 
   if (isLoading) {
     <LoadingSpinner></LoadingSpinner>;

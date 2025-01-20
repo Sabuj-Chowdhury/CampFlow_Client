@@ -42,7 +42,7 @@ const CampCard = ({ camp }) => {
           <span className="font-medium">Time:</span> {time}
         </p>
         <p className="text-gray-600 text-sm mb-2">
-          <span className="font-medium">Price:</span> {price}
+          <span className="font-medium">Price:</span> ${price}
         </p>
 
         {/* Location */}
