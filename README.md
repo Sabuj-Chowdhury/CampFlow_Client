@@ -245,34 +245,34 @@ CampFlow is a comprehensive MERN stack application designed to manage and coordi
 
 ### Popular Camps Cards
 
-![Popular Camps](screenshots/popular-camps.png)
+![Popular Camps](./public/AllCamps.png)
 
 ### Organizer Managing Dashboard
 
-![Organizer Dashboard](screenshots/organizer-dashboard.png)
+![Organizer Dashboard](./public/Admin1.png)
 
 ### Organizer Managing Registrations
 
-![Manage Registrations](screenshots/manage-registrations.png)
+![Manage Registrations](./public/Admin2.png)
 
 ### Participant Analytics Page
 
-![Analytics Page](screenshots/analytics-page.png)
+![Analytics Page](./public/Screenshot%202025-01-20%20at%2016.14.54.png)
 
 ### Payment Page
 
-![Payment Page](screenshots/payment-page.png)
+![Payment Page](./public/Payment.png)
 
 ### User Registration Page
 
-![Registration Page](screenshots/registration-page.png)
+![Registration Page](./public/login.png)
 
 ## Future Improvements
 
 - Add email verification and password reset features.
 - Enhance analytics with more detailed participant and organizer insights.
 - Integrate advanced search and filtering options.
+- improve file organization
+- use more reuseable component (hooks)
 
 ---
-
-This README serves as a comprehensive guide to the CampFlow project, detailing its features, functionality, and setup instructions. For further assistance, refer to the project documentation or contact the development team.
