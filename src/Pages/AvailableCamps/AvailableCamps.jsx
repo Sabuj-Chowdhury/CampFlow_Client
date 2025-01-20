@@ -15,7 +15,7 @@ const AvailableCamps = () => {
   const [filter, setFilter] = useState("");
   const [layout, setLayout] = useState("3col");
   const [search, setSearch] = useState("");
-  console.log(search);
+  // console.log(search);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
