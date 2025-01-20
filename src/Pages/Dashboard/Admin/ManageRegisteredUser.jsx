@@ -14,7 +14,7 @@ const ManageRegisteredUser = () => {
   const axiosSecure = useAxiosSecure();
   const itemsPerPage = 6;
 
-  console.log(search);
+  // console.log(search);
 
   // fetch registration data
   const {
