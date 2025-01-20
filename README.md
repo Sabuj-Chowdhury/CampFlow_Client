@@ -1,40 +1,10 @@
-# CamFlow
+# Medical Camp Management System (CampFlow) - README
 
-CamFlow is a web-based application designed to streamline the management and coordination of medical camps. It provides an intuitive platform for organizers and participants to manage and register for medical camps efficiently.
+## Project Overview
+
+CampFlow is a comprehensive MERN stack application designed to manage and coordinate medical camps efficiently. The platform provides distinct functionalities for organizers and participants, offering features such as camp registration, feedback, analytics, and payment management.
 
 ## Features
-
-- **Dynamic Camp Cards**: Display medical camp information in an interactive and visually appealing card layout.
-- **Category Navigation**: Easily filter and explore camps by category or specialty.
-- **Interactive Dashboards**: Dedicated dashboards for organizers and participants to manage camps and registrations.
-- **Responsive Design**: Ensures seamless functionality across devices.
-- **Secure Payment Integration**: Simplifies participant payments with Stripe.
-
-## Components
-
-### 1. **Banner**
-
-A hero section with a visually appealing background to grab users' attention.
-
-### 2. **Cards**
-
-Displays camp details like name, category, type, location, date, and healthcare professional. Includes options for registration or management based on user roles.
-
-### 3. **Categories**
-
-Provides category-based navigation using React Router's `NavLink`.
-
-### 4. **CampCards**
-
-Manages the display of camps based on the selected category or default view.
-
-### 5. **Footer**
-
-A footer component with social media links and copyright information.
-
-### 6. **Heading**
-
-Reusable component to display page titles and subtitles.
 
 ### Home Page
 
@@ -149,6 +119,20 @@ Reusable component to display page titles and subtitles.
   - Uses react-hook-form for validation.
   - Email verification and password reset not enforced.
 
+### Challenges and Enhancements
+
+- **Pagination:**
+
+  - Implemented at the footer of all tables (10 rows per page).
+
+- **Search:**
+
+  - Search bar added to all tables for filtering data by keywords (Camp Name, Date, Healthcare Professional Name).
+
+- **JWT Authentication:**
+  - Secures sensitive routes with JSON Web Token.
+  - JWT managed using local storage.
+
 ## Installation
 
 ### Prerequisites
@@ -235,6 +219,7 @@ Reusable component to display page titles and subtitles.
 ## Technologies Used
 
 - **React.js**: Component-based library for building the UI.
+- **State Management:** React Context API.
 - **React Router**: For navigation and routing.
 - **Tailwind CSS**: For styling the application.
 - **PropTypes**: For type-checking React props.
@@ -249,3 +234,45 @@ Reusable component to display page titles and subtitles.
 - **React Icons**: For adding icons in components.
 - **React Lazyload**: For improving performance by lazy-loading components.
 - **React Helmet Async**: For managing the document head dynamically.
+- **Authentication:** Firebase, JWT.
+- **Backend:** Express, MongoDB Atlas,nodemailer,morgan,cors,dotenv,json-web-token,strip
+
+## Screenshots
+
+### Home Page
+
+![Home Page](/client/src/assets/Home.png)
+
+### Popular Camps Cards
+
+![Popular Camps](screenshots/popular-camps.png)
+
+### Organizer Managing Dashboard
+
+![Organizer Dashboard](screenshots/organizer-dashboard.png)
+
+### Organizer Managing Registrations
+
+![Manage Registrations](screenshots/manage-registrations.png)
+
+### Participant Analytics Page
+
+![Analytics Page](screenshots/analytics-page.png)
+
+### Payment Page
+
+![Payment Page](screenshots/payment-page.png)
+
+### User Registration Page
+
+![Registration Page](screenshots/registration-page.png)
+
+## Future Improvements
+
+- Add email verification and password reset features.
+- Enhance analytics with more detailed participant and organizer insights.
+- Integrate advanced search and filtering options.
+
+---
+
+This README serves as a comprehensive guide to the CampFlow project, detailing its features, functionality, and setup instructions. For further assistance, refer to the project documentation or contact the development team.
