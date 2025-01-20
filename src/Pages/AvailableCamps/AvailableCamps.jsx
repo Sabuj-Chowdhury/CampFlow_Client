@@ -5,7 +5,7 @@ import CampCard from "./CampCard";
 import LoadingSpinner from "../../Components/shared/LoadingSpinner/LoadingSpinner";
 import SectionTitle from "../../Components/shared/SectionTitle/SectionTitle";
 import { FaThLarge, FaTh } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LazyLoad from "react-lazyload";
 import Pagination from "../../Components/paginationUI/Pagination";
 import { Button } from "@material-tailwind/react";
@@ -15,13 +15,13 @@ const AvailableCamps = () => {
   const [filter, setFilter] = useState("");
   const [layout, setLayout] = useState("3col");
   const [search, setSearch] = useState("");
-  // console.log(search);
+  console.log(search);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
-  useEffect(() => {
-    setCurrentPage(currentPage);
-  }, [search, filter, currentPage]);
+  // useEffect(() => {
+  //   setCurrentPage(currentPage);
+  // }, [search, filter, currentPage]);
 
   const { data: campsData = [], isLoading } = useQuery({
     queryKey: ["campsData", filter, search],
@@ -37,7 +37,6 @@ const AvailableCamps = () => {
   const handleReset = () => {
     setFilter("");
     setSearch("");
-    setLayout("");
   };
 
   const totalPages = Math.ceil(campsData.length / itemsPerPage);
@@ -123,8 +122,12 @@ const AvailableCamps = () => {
         <div>
           {paginatedData.length > 0 ? (
             <div
-              className={`grid grid-cols-1 gap-6
-    ${layout === "3col" ? " md:grid-cols-2 lg:grid-cols-3 " : "grid-cols-2"}`}
+              className={`grid grid-cols-1  gap-6
+                             ${
+                               layout === "3col"
+                                 ? " md:grid-cols-2 lg:grid-cols-3 "
+                                 : "grid-cols-2"
+                             }`}
             >
               {paginatedData.map((camp) => (
                 <LazyLoad key={camp._id} height={300} once>

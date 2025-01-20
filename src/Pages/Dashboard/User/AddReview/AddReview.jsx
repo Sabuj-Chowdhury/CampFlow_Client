@@ -89,7 +89,7 @@ const AddReview = () => {
             placeholder="Write your review here..."
             value={reviewText}
             onChange={(e) => setReviewText(e.target.value)}
-            className="w-full border border-gray-300 rounded-md shadow-sm px-4 py-3 text-gray-700 resize-none"
+            className="w-full border border-gray-300 rounded-md outline-none shadow-sm px-4 py-3 text-gray-700 resize-none"
           ></textarea>
         </div>
 
