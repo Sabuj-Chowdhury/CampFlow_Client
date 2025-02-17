@@ -60,6 +60,18 @@ const Navbar = () => {
           >
             Available Camps
           </NavLink>
+
+          {/* Contact Us */}
+          <NavLink
+            to="/contact-us"
+            className={({ isActive }) =>
+              `text-lg px-3 py-2 rounded ${
+                isActive ? "bg-white text-teal-700 font-semibold" : ""
+              } hover:bg-white hover:text-teal-700 transition`
+            }
+          >
+            Contact Us
+          </NavLink>
         </div>
 
         {/* auth  */}
