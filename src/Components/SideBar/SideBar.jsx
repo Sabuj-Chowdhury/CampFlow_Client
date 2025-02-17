@@ -91,6 +91,19 @@ const SideBar = () => {
                 Registrations Management
               </span>
             </NavLink>
+
+            {/* Analytics */}
+            <NavLink
+              to="/dashboard/admin-analytics"
+              className={({ isActive }) =>
+                `flex items-center gap-4 p-2 rounded hover:bg-teal-600 ${
+                  isActive ? "bg-teal-500" : ""
+                }`
+              }
+            >
+              <IoAnalyticsSharp size={24} />
+              <span className={`${isCollapsed && "hidden"}`}>Analytics</span>
+            </NavLink>
           </div>
         ) : (
           // {/* User Links */}

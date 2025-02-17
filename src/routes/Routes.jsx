@@ -24,6 +24,7 @@ import UserRoutes from "./UserRoutes";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import Blogs from "../Pages/Blogs/Blogs";
 import CampsGallery from "../Pages/CampsGallery/CampsGallery";
+import AdminAnalytics from "../Pages/Dashboard/Admin/Analytics/AdminAnalytics";
 
 const router = createBrowserRouter([
   {
@@ -99,6 +100,16 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoutes>
               <AddCamp></AddCamp>
+            </AdminRoutes>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "admin-analytics",
+        element: (
+          <PrivateRoute>
+            <AdminRoutes>
+              <AdminAnalytics />
             </AdminRoutes>
           </PrivateRoute>
         ),
