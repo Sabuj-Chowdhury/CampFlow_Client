@@ -22,6 +22,7 @@ import UpdateCamp from "../Pages/Dashboard/Admin/Update/UpdateCamp";
 import AddReview from "../Pages/Dashboard/User/AddReview/AddReview";
 import UserRoutes from "./UserRoutes";
 import ContactUs from "../Pages/ContactUs/ContactUs";
+import Blogs from "../Pages/Blogs/Blogs";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
       {
         path: "contact-us",
         element: <ContactUs />,
+      },
+      {
+        path: "blogs",
+        element: (
+          <PrivateRoute>
+            <Blogs />
+          </PrivateRoute>
+        ),
       },
     ],
   },
