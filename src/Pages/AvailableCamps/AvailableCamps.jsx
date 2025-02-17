@@ -55,9 +55,10 @@ const AvailableCamps = () => {
             className="bg-white border outline-none border-gray-300 text-gray-700 rounded-lg px-4 py-2 md:w-2/12 w-full sm:w-auto"
           >
             <option value="">Select</option>
-            <option value="count">Most Registered</option>
-            <option value="camp-fees">Camp Fees (High to Low)</option>
-            <option value="alphabetical">Alphabetical Order (Camp Name)</option>
+            {/* <option value="count">Most Registered</option> */}
+            <option value="des">Camp Fees (High to Low)</option>
+            <option value="asc">Camp Fees (Low to High)</option>
+            {/* <option value="alphabetical">Alphabetical Order (Camp Name)</option> */}
           </select>
 
           <div className="flex items-center gap-2 w-full md:w-7/12 sm:w-auto">
