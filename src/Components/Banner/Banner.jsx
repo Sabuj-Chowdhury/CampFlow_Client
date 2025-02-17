@@ -49,7 +49,7 @@ const Banner = () => {
               to="/available-camps"
               className="bg-teal-600 hover:bg-teal-500 px-6 py-3 text-lg font-semibold rounded-lg transition"
             >
-              Join Our Journey
+              See More
             </Link>
           </div>
         </SwiperSlide>
@@ -78,7 +78,7 @@ const Banner = () => {
               to="/available-camps"
               className="bg-teal-600 hover:bg-teal-500 px-6 py-3 text-lg font-semibold rounded-lg transition"
             >
-              Explore More
+              See More
             </Link>
           </div>
         </SwiperSlide>
@@ -107,7 +107,7 @@ const Banner = () => {
               to="/available-camps"
               className="bg-teal-600 hover:bg-teal-500 px-6 py-3 text-lg font-semibold rounded-lg transition"
             >
-              Get Involved
+              See More
             </Link>
           </div>
         </SwiperSlide>
