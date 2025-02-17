@@ -75,6 +75,19 @@ const Navbar = () => {
             </NavLink>
           )}
 
+          {user && (
+            <NavLink
+              to="/camps-gallery"
+              className={({ isActive }) =>
+                `text-lg px-3 py-2 rounded ${
+                  isActive ? "bg-white text-teal-700 font-semibold" : ""
+                } hover:bg-white hover:text-teal-700 transition`
+              }
+            >
+              Camps Gallery
+            </NavLink>
+          )}
+
           {/* Contact Us */}
           <NavLink
             to="/contact-us"
@@ -242,12 +255,24 @@ const Navbar = () => {
           {/* private routes */}
 
           {user && (
+            // blogs route
             <NavLink
               to="/blogs"
               className="text-lg py-2 hover:bg-teal-600 w-full text-center"
               onClick={toggleMenu}
             >
               Blogs
+            </NavLink>
+          )}
+
+          {user && (
+            // gallery
+            <NavLink
+              to="/camps-gallery"
+              className="text-lg py-2 hover:bg-teal-600 w-full text-center"
+              onClick={toggleMenu}
+            >
+              Camps Gallery
             </NavLink>
           )}
 

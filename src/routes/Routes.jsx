@@ -23,6 +23,7 @@ import AddReview from "../Pages/Dashboard/User/AddReview/AddReview";
 import UserRoutes from "./UserRoutes";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import Blogs from "../Pages/Blogs/Blogs";
+import CampsGallery from "../Pages/CampsGallery/CampsGallery";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Blogs />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "camps-gallery",
+        element: (
+          <PrivateRoute>
+            <CampsGallery />
           </PrivateRoute>
         ),
       },
